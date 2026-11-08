@@ -21,7 +21,9 @@ numbers below refer to the accompanying manuscript (current draft).
 ## Environment
 
 The code is plain Python 3 with numpy, scipy and matplotlib, pinned in
-`requirements.txt`. It was developed with Python 3.13.
+`requirements.txt`. It was developed with Python 3.13. Most scripts need
+well under 1 GB of memory. The largest dense diagonalizations need about
+6.5 GB.
 
 I manage virtual environments with
 [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/), and the
@@ -78,23 +80,23 @@ set size.
 
 | Script | What it computes | Output in `results/` | Time | Peak memory |
 |---|---|---|---|---|
-| `dos_fig1.py` | Fig. 1 of the 2010 paper: two-electron DOS on a 7×7 lattice, U = 0, 10, 15, 20 | `fig1_dos_reproduction.png`, `eigenvalues_U{0,10,15,20}.dat` | TIME_dos_fig1 | MEM_dos_fig1 |
-| `centroid_fig3.py` | Fig. 3 of the 2010 paper: centroid oscillation of the pair under a field (Crank–Nicolson) and its power spectrum | `fig3_centroid_reproduction.png`, `position_U*.dat`, `spectrum_U*.dat` | TIME_centroid_fig3 | MEM_centroid_fig3 |
-| `energy_distance.py` | Energy-resolved mean particle separation: extended band vs. bound U-band | `energy_distance_U{0,10,15,20,50}.png` | TIME_energy_distance | MEM_energy_distance |
-| `uband_shiftinvert.py` | U-band eigenvalues at L = 9, 11, 13 by shift-invert sparse diagonalization | `uband_L{9,11,13}_U{10,15,20}.dat` | TIME_uband_shiftinvert | MEM_uband_shiftinvert |
-| `analytical_dos.py` | Exact hypercubic DOS for d = 1…8, compared with the two-electron spectra (**run after the two scripts above**) | `analytical_dos_1234D.png`, `analytical_dos_5678D.png`, `compare_U0_vs_4D.png`, `compare_Uband_vs_2D.png` | TIME_analytical_dos | MEM_analytical_dos |
+| `dos_fig1.py` | Fig. 1 of the 2010 paper: two-electron DOS on a 7×7 lattice, U = 0, 10, 15, 20 | `fig1_dos_reproduction.png`, `eigenvalues_U{0,10,15,20}.dat` | 4 s | 0.3 GB |
+| `centroid_fig3.py` | Fig. 3 of the 2010 paper: centroid oscillation of the pair under a field (Crank–Nicolson) and its power spectrum | `fig3_centroid_reproduction.png`, `position_U*.dat`, `spectrum_U*.dat` | 7.5 min | 0.3 GB |
+| `energy_distance.py` | Energy-resolved mean particle separation: extended band vs. bound U-band | `energy_distance_U{0,10,15,20,50}.png` | 5 s | 0.5 GB |
+| `uband_shiftinvert.py` | U-band eigenvalues at L = 9, 11, 13 by shift-invert sparse diagonalization | `uband_L{9,11,13}_U{10,15,20}.dat` | 12 min | 3.0 GB |
+| `analytical_dos.py` | Exact hypercubic DOS for d = 1…8, compared with the two-electron spectra (**run after the two scripts above**) | `analytical_dos_1234D.png`, `analytical_dos_5678D.png`, `compare_U0_vs_4D.png`, `compare_Uband_vs_2D.png` | 1.7 min | 1.4 GB |
 
 ### 2. Manuscript figures
 
 | Script | Manuscript | Output in `results/` | Time | Peak memory |
 |---|---|---|---|---|
-| `tbc_dos.py` | Figs. 1, 2, 8 | `tbc_compare_U0_vs_4D.png`, `kgrid_collapse_universal.png`, `kgrid_compare_Uband_vs_2D.png` | TIME_tbc_dos | MEM_tbc_dos |
-| `fig_sectors.py` | Fig. 3 (sector-counting rule) | `fig_sectors.png` | TIME_fig_sectors | MEM_fig_sectors |
-| `fig_fpc_Lscaling.py` | Fig. 4 (finite-population correction, L = 3…10) | `fpc_Lscaling.png` | TIME_fig_fpc_Lscaling | MEM_fig_fpc_Lscaling |
-| `fig_naive_vs_fpc.py` | Fig. 5 (naive vs. FPC vs. full projection) | `naive_vs_fpc_vs_exact.png` | TIME_fig_naive_vs_fpc | MEM_fig_naive_vs_fpc |
-| `fig_dos_gaussian_collapse.py` | Fig. 7 (Appendix A, Gaussian collapse of the hypercubic DOS) | `dos_gaussian_collapse.png` | TIME_fig_dos_gaussian_collapse | MEM_fig_dos_gaussian_collapse |
-| `mu4_flux_validation.py` | Fig. 9 (Appendix E, μ₄ under uniform flux) | `mu4_flux_response.png` | TIME_mu4_flux_validation | MEM_mu4_flux_validation |
-| `doublon_flux_validation.py` | Fig. 10 (Appendix E, doublon flux response: charge-2e check) | `doublon_flux_response.png` | TIME_doublon_flux_validation | MEM_doublon_flux_validation |
+| `tbc_dos.py` | Figs. 1, 2, 8 | `tbc_compare_U0_vs_4D.png`, `kgrid_collapse_universal.png`, `kgrid_compare_Uband_vs_2D.png` | 1.5 min | 0.2 GB |
+| `fig_sectors.py` | Fig. 3 (sector-counting rule) | `fig_sectors.png` | 5 min | 3.1 GB |
+| `fig_fpc_Lscaling.py` | Fig. 4 (finite-population correction, L = 3…10) | `fpc_Lscaling.png` | 1 s | 0.1 GB |
+| `fig_naive_vs_fpc.py` | Fig. 5 (naive vs. FPC vs. full projection) | `naive_vs_fpc_vs_exact.png` | 2 s | 0.1 GB |
+| `fig_dos_gaussian_collapse.py` | Fig. 7 (Appendix A, Gaussian collapse of the hypercubic DOS) | `dos_gaussian_collapse.png` | 14 s | 0.1 GB |
+| `mu4_flux_validation.py` | Fig. 9 (Appendix E, μ₄ under uniform flux) | `mu4_flux_response.png` | 11 s | 0.1 GB |
+| `doublon_flux_validation.py` | Fig. 10 (Appendix E, doublon flux response: charge-2e check) | `doublon_flux_response.png` | 27 s | 0.2 GB |
 
 Fig. 6 is a schematic drawn directly in LaTeX and has no script.
 
@@ -104,9 +106,9 @@ These write no files. They print the numbers the manuscript quotes.
 
 | Script | What it prints | Time | Peak memory |
 |---|---|---|---|
-| `sw_correction.py` | Schrieffer–Wolff 1/U² amplitudes Var(V) for (4,0), (3,1), (2,2) at L = 4, and (3,1), (2,2) at L = 5 (finite-U table; for its n = 3 rows see section 4) | TIME_sw_correction | MEM_sw_correction |
-| `verify_sectors_provenance.py` | Exact sector state counts and sector mean energies behind Fig. 3, from full dense diagonalization | TIME_verify_sectors_provenance | MEM_verify_sectors_provenance |
-| `fig3_center_diagnostic.py` | Whether the shift of the sector centers scales as λ²/U or λ³/U² | TIME_fig3_center_diagnostic | MEM_fig3_center_diagnostic |
+| `sw_correction.py` | Schrieffer–Wolff 1/U² amplitudes Var(V) for (4,0), (3,1), (2,2) at L = 4, and (3,1), (2,2) at L = 5 (finite-U table; for its n = 3 rows see section 4) | 6 s | 0.2 GB |
+| `verify_sectors_provenance.py` | Exact sector state counts and sector mean energies behind Fig. 3, from full dense diagonalization | 25 min | 5.7 GB |
+| `fig3_center_diagnostic.py` | Whether the shift of the sector centers scales as λ²/U or λ³/U² | 59 min | 6.3 GB |
 
 ### 4. Tables computed directly from the modules
 
@@ -151,7 +153,23 @@ for s in dos_fig1 centroid_fig3 energy_distance uband_shiftinvert analytical_dos
 done
 ```
 
-The full run takes about TOTAL_TIME on the machine above.
+The full run takes just under 2 hours on the machine above. The two
+dense-diagonalization checks (`verify_sectors_provenance.py` and
+`fig3_center_diagnostic.py`) account for about 85 minutes of that, so all
+the figures alone take about 30 minutes.
+
+## Manuscript
+
+The manuscript source goes in `manuscript/`, which is not public yet: git
+tracks only the empty folder. `paper.tex` loads its figures from
+`../results/`, so generate them first (section 2), then build it with two
+passes so that cross-references resolve:
+
+```sh
+cd manuscript
+pdflatex paper.tex
+pdflatex paper.tex
+```
 
 ## Shared modules
 
