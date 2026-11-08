@@ -5,6 +5,10 @@
 # --- Research notebooks: private working notes, not part of the repository ---
 /research_notebooks/
 
+# --- Manuscript: not public yet (folder kept via .gitkeep) ---
+/manuscript/*
+!/manuscript/.gitkeep
+
 # --- Generated outputs: regenerate from source (LaTeX / Python scripts) ---
 *.pdf
 *.dat
