@@ -162,11 +162,15 @@ the figures alone take about 30 minutes.
 
 The manuscript source goes in `manuscript/`, which is not public yet: git
 tracks only the empty folder. `paper.tex` loads its figures from
-`../results/`, so generate them first (section 2), then build it with two
-passes so that cross-references resolve:
+`../results/`, so generate them first (section 2). The references live in
+`manuscript/references.bib` and are formatted with the APS style
+`apsrev4-2` (part of REVTeX, included in TeX Live), so BibTeX runs between
+the LaTeX passes:
 
 ```sh
 cd manuscript
+pdflatex paper.tex
+bibtex paper
 pdflatex paper.tex
 pdflatex paper.tex
 ```
