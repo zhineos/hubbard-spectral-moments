@@ -1,0 +1,12 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "NegativeControls.Sorry",
+  "theorem_names": [
+    "HubbardMoments.secondMomentTheorem"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

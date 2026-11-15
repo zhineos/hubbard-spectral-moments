@@ -1,0 +1,45 @@
+# Citation metadata. Zenodo reads this file from the tagged commit of each GitHub release.
+# At the release: date-released must be the day of the GitHub release; version must match its tag.
+# After the arXiv posting: add the preprint under preferred-citation (next release).
+# Not listed on purpose: the commit (a file cannot contain its own commit; the tag pins it)
+# and the DOI (Zenodo assigns it when the release is archived; add it in the next release).
+cff-version: 1.2.0
+message: "If you use this code, the checks or the Lean formalization, please cite them as below."
+type: software
+title: "Hubbard spectral moments: code, checks and Lean formalization for 'Spectral Moments of the Projected Hubbard Configuration Graph'"
+abstract: >-
+  Code, golden-value checks, run records and a Lean 4 formalization accompanying the paper
+  "Spectral Moments of the Projected Hubbard Configuration Graph". The paper studies the
+  spectral moments of the no-double-occupancy hopping operator of few-fermion Hubbard
+  sectors: an exact second-moment theorem on any finite graph, the exact linearity of the
+  fourth moment in the same-spin pair count with a closed-form exchange coefficient, the
+  vanishing 1/U term on triangle-free graphs, and the flux response of the moments and of
+  the doublon. STATEMENT.md lists the claims and docs/method.md how they were checked.
+authors:
+  - family-names: Souza
+    given-names: D.
+    orcid: "https://orcid.org/0000-0003-2671-9227"
+    # affiliation: "..."
+repository-code: "https://github.com/zhineos/hubbard-spectral-moments"
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-11-15"
+keywords:
+  - Hubbard model
+  - spectral moments
+  - repulsively bound pairs
+  - doublon
+  - Lean 4
+references:
+  - type: article
+    authors:
+      - family-names: Souza
+        given-names: D.
+      - family-names: Claro
+        given-names: F.
+    title: "Paired states of interacting electrons in a two dimensional lattice"
+    journal: "Physical Review B"
+    volume: 82
+    start: 205437
+    year: 2010
+    doi: "10.1103/PhysRevB.82.205437"

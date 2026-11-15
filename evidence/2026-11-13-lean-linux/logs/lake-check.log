@@ -1,0 +1,7 @@
+Resolving dependencies
+Building and exporting
+Running Lean default kernel on solution
+Lean default kernel rejected the solution
+✔ [9063/9064] Built HubbardMoments (2.1s)
+uncaught exception: Expr.forallE invalid
+error: Lean default exited with 1

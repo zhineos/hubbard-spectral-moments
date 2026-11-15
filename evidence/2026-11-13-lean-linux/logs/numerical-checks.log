@@ -1,0 +1,173 @@
+PASS  register         frozen rows vs frozen.tsv + drift-log.tsv    got []  expected []
+PASS  sec:fewbody      sector dim L=4 (2,2) k=0 enumerated          got 10920  expected 10920
+PASS  sec:fewbody      sector dim L=4 (2,2) k=0 formula             got 10920  expected 10920
+PASS  sec:fewbody      sector dim L=4 (2,2) k=1 enumerated          got 3360  expected 3360
+PASS  sec:fewbody      sector dim L=4 (2,2) k=1 formula             got 3360  expected 3360
+PASS  sec:fewbody      sector dim L=4 (2,2) k=2 enumerated          got 120  expected 120
+PASS  sec:fewbody      sector dim L=4 (2,2) k=2 formula             got 120  expected 120
+PASS  sec:fewbody      sector dim L=5 (2,1) k=0 enumerated          got 6900  expected 6900
+PASS  sec:fewbody      sector dim L=5 (2,1) k=0 formula             got 6900  expected 6900
+PASS  sec:fewbody      sector dim L=5 (2,1) k=1 enumerated          got 600  expected 600
+PASS  sec:fewbody      sector dim L=5 (2,1) k=1 formula             got 600  expected 600
+PASS  tab:mu2verify    mu2(inf) L=3 n=2 sparse trace                got 7  expected 7
+PASS  tab:mu2verify    mu2(inf) L=3 n=2 theorem                     got 7  expected 7
+PASS  tab:mu2verify    mu2(inf) L=4 n=3 sparse trace                got 52/5  expected 52/5
+PASS  tab:mu2verify    mu2(inf) L=4 n=3 theorem                     got 52/5  expected 52/5
+PASS  tab:mu2verify    mu2(inf) L=4 n=4 sparse trace                got 64/5  expected 64/5
+PASS  tab:mu2verify    mu2(inf) L=4 n=4 theorem                     got 64/5  expected 64/5
+PASS  tab:mu2verify    mu2(inf) L=5 n=4 sparse trace                got 14  expected 14
+PASS  tab:mu2verify    mu2(inf) L=5 n=4 theorem                     got 14  expected 14
+PASS  tab:mu2verify    mu2(inf) L=6 n=4 sparse trace                got 512/35  expected 512/35
+PASS  tab:mu2verify    mu2(inf) L=6 n=4 theorem                     got 512/35  expected 512/35
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 0)                          got 112/15  expected 112/15
+PASS  tab:mu4exact     mu4(inf) L=4 (2, 0)                          got 2176/15  expected 2176/15
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 0) vs theorem               got 112/15  expected 112/15
+PASS  tab:mu4exact     mu2(inf) L=4 (1, 1)                          got 112/15  expected 112/15
+PASS  tab:mu4exact     mu4(inf) L=4 (1, 1)                          got 2272/15  expected 2272/15
+PASS  tab:mu4exact     mu2(inf) L=4 (1, 1) vs theorem               got 112/15  expected 112/15
+PASS  tab:mu4exact     mu2(inf) L=4 (3, 0)                          got 52/5  expected 52/5
+PASS  tab:mu4exact     mu4(inf) L=4 (3, 0)                          got 9976/35  expected 9976/35
+PASS  tab:mu4exact     mu2(inf) L=4 (3, 0) vs theorem               got 52/5  expected 52/5
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 1)                          got 52/5  expected 52/5
+PASS  tab:mu4exact     mu4(inf) L=4 (2, 1)                          got 10348/35  expected 10348/35
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 1) vs theorem               got 52/5  expected 52/5
+PASS  tab:mu4exact     mu2(inf) L=4 (4, 0)                          got 64/5  expected 64/5
+PASS  tab:mu4exact     mu4(inf) L=4 (4, 0)                          got 197632/455  expected 197632/455
+PASS  tab:mu4exact     mu2(inf) L=4 (4, 0) vs theorem               got 64/5  expected 64/5
+PASS  tab:mu4exact     mu2(inf) L=4 (3, 1)                          got 64/5  expected 64/5
+PASS  tab:mu4exact     mu4(inf) L=4 (3, 1)                          got 203536/455  expected 203536/455
+PASS  tab:mu4exact     mu2(inf) L=4 (3, 1) vs theorem               got 64/5  expected 64/5
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 2)                          got 64/5  expected 64/5
+PASS  tab:mu4exact     mu4(inf) L=4 (2, 2)                          got 15808/35  expected 15808/35
+PASS  tab:mu4exact     mu2(inf) L=4 (2, 2) vs theorem               got 64/5  expected 64/5
+PASS  sec:mu4exchange  n=4 L=4 slopes in P_same agree               got -1968/455  expected -1968/455
+PASS  tab:fpcexact     L=4 band: sum, P2, P4                        got (0, 64, 640)  expected (0, 64, 640)
+PASS  tab:fpcexact     U=0 k=2 mu2 enumerated                       got 112/15  expected 112/15
+PASS  tab:fpcexact     U=0 k=2 mu4 enumerated                       got 2176/15  expected 2176/15
+PASS  tab:fpcexact     U=0 k=2 mu2, mu4 closed forms                got (112/15, 2176/15)  expected (112/15, 2176/15)
+PASS  sec:fermistats   k=2 one species: mu4(U=0) = mu4(U=inf)       got 2176/15  expected 2176/15
+PASS  tab:fpcexact     U=0 k=3 mu2 enumerated                       got 52/5  expected 52/5
+PASS  tab:fpcexact     U=0 k=3 mu4 enumerated                       got 9976/35  expected 9976/35
+PASS  tab:fpcexact     U=0 k=3 mu2, mu4 closed forms                got (52/5, 9976/35)  expected (52/5, 9976/35)
+PASS  sec:fermistats   k=3 one species: mu4(U=0) = mu4(U=inf)       got 9976/35  expected 9976/35
+PASS  tab:fpcexact     U=0 k=4 mu2 enumerated                       got 64/5  expected 64/5
+PASS  tab:fpcexact     U=0 k=4 mu4 enumerated                       got 197632/455  expected 197632/455
+PASS  tab:fpcexact     U=0 k=4 mu2, mu4 closed forms                got (64/5, 197632/455)  expected (64/5, 197632/455)
+PASS  sec:fermistats   k=4 one species: mu4(U=0) = mu4(U=inf)       got 197632/455  expected 197632/455
+PASS  sec:mu4exchange  alpha(N,2) at L=4                            got -32/5  expected -32/5
+PASS  sec:mu4exchange  alpha(N,2) at L=5                            got -8/3  expected -8/3
+PASS  sec:mu4exchange  alpha(N,2) at L=6                            got -64/35  expected -64/35
+PASS  sec:mu4exchange  alpha(N,2) at L=7                            got -4/3  expected -4/3
+PASS  sec:SW           Tr(T0 V) L=4 (2,2)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=4 (3,1)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=5 (2,1)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=3 (1,1) is nonzero                got True  expected True
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (1, 1)               got 20/7  expected 20/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (2, 0)               got 20/7  expected 20/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (2, 1)               got 24/7  expected 24/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (3, 0)               got 24/7  expected 24/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (2, 2)               got 24/7  expected 24/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (3, 1)               got 24/7  expected 24/7
+PASS  sec:mu2theorem   mu2 open chain, 7 sites (4, 0)               got 24/7  expected 24/7
+PASS  sec:mu2theorem   mu2 star, 6 sites (1, 1)                     got 8/3  expected 8/3
+PASS  sec:mu2theorem   mu2 star, 6 sites (2, 0)                     got 8/3  expected 8/3
+PASS  sec:mu2theorem   mu2 star, 6 sites (2, 1)                     got 3  expected 3
+PASS  sec:mu2theorem   mu2 star, 6 sites (3, 0)                     got 3  expected 3
+PASS  sec:mu2theorem   mu2 star, 6 sites (2, 2)                     got 8/3  expected 8/3
+PASS  sec:mu2theorem   mu2 star, 6 sites (3, 1)                     got 8/3  expected 8/3
+PASS  sec:mu2theorem   mu2 star, 6 sites (4, 0)                     got 8/3  expected 8/3
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (1, 1)   got 27/7  expected 27/7
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (2, 0)   got 27/7  expected 27/7
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (2, 1)   got 135/28  expected 135/28
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (3, 0)   got 135/28  expected 135/28
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (2, 2)   got 36/7  expected 36/7
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (3, 1)   got 36/7  expected 36/7
+PASS  sec:mu2theorem   mu2 irregular, 8 sites, degrees 1-4 (4, 0)   got 36/7  expected 36/7
+PASS  app:mu4fpc       random population N=10 k=2: brute force = formulas got (6176/225, 10138808/5625)  expected (6176/225, 10138808/5625)
+PASS  app:mu4fpc       random population N=10 k=3: brute force = formulas got (2702/75, 6105296/1875)  expected (2702/75, 6105296/1875)
+PASS  app:mu4fpc       random population N=10 k=4: brute force = formulas got (3088/75, 56856292/13125)  expected (3088/75, 56856292/13125)
+PASS  app:numerics     sign rule vs Jordan-Wigner, 4000 random moves got 0  expected 0
+PASS  app:numerics     H_inf symmetric L=3 (2,1)                    got 0.0  expected 0
+PASS  app:numerics     H_inf symmetric L=4 (2,2)                    got 0.0  expected 0
+PASS  app:numerics     H_inf symmetric L=4 (3,1)                    got 0.0  expected 0
+PASS  app:mu4walks     alpha(27,2) simple cubic                     got -96/13  expected -96/13
+PASS  app:mu4walks     cubic: edge / face-diagonal / other channel  got (-1296, -1296, 0)  expected (-1296, -1296, 0)
+PASS  app:mu4walks     L=5 n=4 plaquette, mediators same/opposite spin got (208, 200)  expected (208, 200)
+PASS  app:mu4walks     L=5 n=3 diagonal pair + mediator, opposite/same spin got (186, 180)  expected (186, 180)
+PASS  app:mu4walks     L=5 n=3 edge pair + plaquette corner, opposite/same got (182, 180)  expected (182, 180)
+PASS  app:mu4walks     L=6 n=4 plaquette, mediators same/opposite spin got (208, 200)  expected (208, 200)
+PASS  app:mu4walks     L=6 n=3 diagonal pair + mediator, opposite/same spin got (186, 180)  expected (186, 180)
+PASS  app:mu4walks     L=6 n=3 edge pair + plaquette corner, opposite/same got (182, 180)  expected (182, 180)
+PASS  sec:mu4exchange  alpha(N,2) by channel at L=4: (pairs, value per pair) got {'edge': (32, [Fraction(-12, 1)]), 'diagonal': (48, [Fraction(-8, 1)]), 'other': (40, [Fraction(0, 1)])}  expected {'edge': (32, [-12]), 'diagonal': (48, [-8]), 'other': (40, [0])}
+PASS  sec:mu4exchange  alpha(N,2) by channel at L=5: (pairs, value per pair) got {'edge': (50, [Fraction(-8, 1)]), 'other': (200, [Fraction(0, 1)]), 'diagonal': (50, [Fraction(-8, 1)])}  expected {'edge': (50, [-8]), 'diagonal': (50, [-8]), 'other': (200, [0])}
+PASS  sec:mu4exchange  alpha(N,2) by channel at L=6: (pairs, value per pair) got {'edge': (72, [Fraction(-8, 1)]), 'other': (486, [Fraction(0, 1)]), 'diagonal': (72, [Fraction(-8, 1)])}  expected {'edge': (72, [-8]), 'diagonal': (72, [-8]), 'other': (486, [0])}
+PASS  sec:mu4exchange  alpha(N,2) by channel at L=7: (pairs, value per pair) got {'edge': (98, [Fraction(-8, 1)]), 'other': (980, [Fraction(0, 1)]), 'diagonal': (98, [Fraction(-8, 1)])}  expected {'edge': (98, [-8]), 'diagonal': (98, [-8]), 'other': (980, [0])}
+PASS  sec:SW           Tr(T0 V) L=5 (2,2)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=5 (3,1)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=6 (1,1)                           got 0  expected 0
+PASS  sec:SW           Tr(T0 V) L=6 (2,1)                           got 0  expected 0
+PASS  sec:SW           L=3 (1, 1): 1/U coefficient ED vs -2Tr(T0V)/D0 (rel. dev < 1e-3) got True  expected True
+PASS  sec:SW           L=3 (2, 1): 1/U coefficient ED vs -2Tr(T0V)/D0 (rel. dev < 1e-3) got True  expected True
+PASS  tab:fpcexact     k=2: ED moments match the closed forms (rel. < 1e-13) got True  expected True
+PASS  tab:fpcexact     k=3: ED moments match the closed forms (rel. < 1e-13) got True  expected True
+PASS  tab:fpcexact     k=4: ED moments match the closed forms (rel. < 1e-13) got True  expected True
+PASS  tab:swamp        L=4 (4, 0): Var(V), c2                       got (0, 0)  expected (0, 0)
+PASS  tab:swamp        L=4 (3, 0): Var(V), c2                       got (0, 0)  expected (0, 0)
+PASS  tab:swamp        L=4 (2, 1): Var(V), c2                       got (9.643175, -3076/225)  expected (9.643175, -3076/225)
+PASS  tab:swamp        L=4 (3, 1): Var(V), c2                       got (13.756484, -40704/2275)  expected (13.756484, -40704/2275)
+PASS  tab:swamp        L=4 (2, 2): Var(V), c2                       got (18.376361, -487744/20475)  expected (18.376361, -487744/20475)
+PASS  sec:SW           L=4 (1, 1): ED U^-2 coefficient vs c2 = -7.7511 (rel. dev < 1e-3) got True  expected True
+PASS  sec:SW           L=4 (2, 1): ED U^-2 coefficient vs c2 = -13.6711 (rel. dev < 1e-3) got True  expected True
+PASS  sec:SW           L=5 (1,1): ED U^-2 coefficient vs c2 = -37/9 (rel. dev < 1e-3) got True  expected True
+PASS  sec:SW           c2(1,1) = -96/(N-1) - 64/(N-1)^2 at L = 5, 6, 7 got {True}  expected {True}
+PASS  sec:SW           L=4 c2 near half filling: (13,1), (12,2)     got (6848/1575, 23424/2275)  expected (6848/1575, 23424/2275)
+PASS  sec:SW#beta      L=4: c2/(N_up N_down), (3,1) vs (2,2), relative % got 0.14  expected 0.14
+PASS  sec:SW#beta      L=5: c2/(N_up N_down), (3,1) vs (2,2), relative % got 0.06  expected 0.06
+PASS  sec:SW#beta      L=6: c2/(N_up N_down), (3,1) vs (2,2), relative % got 0.03  expected 0.03
+PASS  sec:SW#beta      L=4 n=5: c2/(N_up N_down), (4,1) vs (3,2), relative % got 0.34  expected 0.34
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=3 n=3 (all slopes) got {Fraction(-37, 7)}  expected {Fraction(-37, 7)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=3 n=4 (all slopes) got {Fraction(-65, 21)}  expected {Fraction(-65, 21)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=3 n=5 (all slopes) got {Fraction(-10, 7)}  expected {Fraction(-10, 7)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=5 n=3 (all slopes) got {Fraction(-55, 23)}  expected {Fraction(-55, 23)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=5 n=4 (all slopes) got {Fraction(-49, 23)}  expected {Fraction(-49, 23)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=6 n=3 (all slopes) got {Fraction(-1012, 595)}  expected {Fraction(-1012, 595)}
+PASS  sec:mu4exchange  alpha(N,n) closed form, L=7 n=3 (all slopes) got {Fraction(-119, 94)}  expected {Fraction(-119, 94)}
+PASS  sec:mu4exchange  alpha(25,6) closed form = n=6 evidence slope -38/23 got -38/23  expected -38/23
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on K6 (N=6, C4=45), n=2 got {Fraction(-96, 1)}  expected {Fraction(-96, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on K6 (N=6, C4=45), n=3 got {Fraction(-39, 1)}  expected {Fraction(-39, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on K6 (N=6, C4=45), n=4 got {Fraction(-4, 1)}  expected {Fraction(-4, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on Petersen (N=10, C4=0), n=2 got {Fraction(0, 1)}  expected {Fraction(0, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on Petersen (N=10, C4=0), n=3 got {Fraction(0, 1)}  expected {Fraction(0, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on Petersen (N=10, C4=0), n=4 got {Fraction(0, 1)}  expected {Fraction(0, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on triangular 3x3 (N=9, C4=108), n=2 got {Fraction(-96, 1)}  expected {Fraction(-96, 1)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on triangular 3x3 (N=9, C4=108), n=3 got {Fraction(-444, 7)}  expected {Fraction(-444, 7)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on triangular 3x3 (N=9, C4=108), n=4 got {Fraction(-260, 7)}  expected {Fraction(-260, 7)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on random G(8,0.45), seed 7 (N=8, C4=31), n=2 got {Fraction(-248, 7)}  expected {Fraction(-248, 7)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on random G(8,0.45), seed 7 (N=8, C4=31), n=3 got {Fraction(-899, 42)}  expected {Fraction(-899, 42)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on random G(8,0.45), seed 7 (N=8, C4=31), n=4 got {Fraction(-372, 35)}  expected {Fraction(-372, 35)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on torus 4x4 (N=16, C4=24), n=2 got {Fraction(-32, 5)}  expected {Fraction(-32, 5)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on torus 4x4 (N=16, C4=24), n=3 got {Fraction(-186, 35)}  expected {Fraction(-186, 35)}
+PASS  sec:mu4exchange  alpha(N,n) = C4 form on torus 4x4 (N=16, C4=24), n=4 got {Fraction(-1968, 455)}  expected {Fraction(-1968, 455)}
+PASS  sec:mu4exchange  alpha(N,2) closed form reduces to -64/(N-1)  got {True}  expected {True}
+PASS  app:mu4walks     alpha(N,2) on 5x5x5 (m=0 sides of 4): value, formula got (-48/31, True)  expected (-48/31, True)
+PASS  app:mu4walks     alpha(N,2) on 4x4x4 (m=3 sides of 4): value, formula got (-80/21, True)  expected (-80/21, True)
+PASS  app:mu4walks     alpha(N,2) on 3x4 (m=1 sides of 4): value, formula got (-80/11, True)  expected (-80/11, True)
+PASS  app:mu4walks     alpha(N,2) on 4x5 (m=1 sides of 4): value, formula got (-80/19, True)  expected (-80/19, True)
+PASS  app:mu4walks     kagome N=27: alpha(N,2)                      got 0  expected 0
+PASS  app:mu4walks     kagome N=48: alpha(N,2)                      got 0  expected 0
+PASS  sec:futurework   alpha(N,2,Phi) = -64/(N-1) cos Phi, all 9 fluxes, L=3 (< 1e-12) got True  expected True
+PASS  sec:futurework   orbital mu4^(1,1)(Phi)-mu4^(1,1)(0) = 16(N-4)(cos Phi-1)/(N-1), L=3 got True  expected True
+PASS  sec:futurework   alpha(N,2,Phi) = -64/(N-1) cos Phi, all 25 fluxes, L=5 (< 1e-12) got True  expected True
+PASS  sec:futurework   orbital mu4^(1,1)(Phi)-mu4^(1,1)(0) = 16(N-4)(cos Phi-1)/(N-1), L=5 got True  expected True
+PASS  sec:futurework   alpha(N,2,Phi) = -64/(N-1) cos Phi, all 36 fluxes, L=6 (< 1e-12) got True  expected True
+PASS  sec:futurework   orbital mu4^(1,1)(Phi)-mu4^(1,1)(0) = 16(N-4)(cos Phi-1)/(N-1), L=6 got True  expected True
+PASS  sec:futurework   alpha(N,2,Phi) = -64/(N-1) cos Phi, every 3rd of the 49 fluxes, L=7 (< 1e-12) got True  expected True
+PASS  sec:futurework   orbital mu4^(1,1)(Phi)-mu4^(1,1)(0) = 16(N-4)(cos Phi-1)/(N-1), L=7 got True  expected True
+PASS  sec:futurework   L=6 twist: U-band deviation from pi-periodicity at U=20, 40 got (1e-04, 3e-06)  expected (1e-04, 3e-06)
+PASS  sec:futurework   L=6 twist: ratio U=20/U=40 within 30% of 2^(L-1) = 32 got True  expected True
+PASS  sec:futurework   L=4 twist: ratio U=20/U=40 within 30% of 2^(L-1) = 8 got True  expected True
+PASS  sec:futurework   L=5 twist: ratio U=20/U=40 within 30% of 2^(L-1) = 16 got True  expected True
+PASS  sec:benchmark    L=3 U-band centre: (centre - eps_d) U^2 within 3% of -8 at U=80 got True  expected True
+PASS  sec:futurework   L=6 twist: U-band vs doubled-twist doublon model at U=20, 40 got (8e-03, 1e-03)  expected (8e-03, 1e-03)
+
+171/171 checks passed in 87.0 s

@@ -1,26 +1,27 @@
 """
-Schrieffer-Wolff (2nd-order degenerate perturbation theory) correction to
-H_infinity = P0 H_t P0, exact through O(1/U).
+Schrieffer-Wolff (degenerate perturbation theory) expansion of the N_d = 0 band of
+H = H_t + U*D, through O(1/U^2).
 
-H = H_t + U*D,  D = number of doubly-occupied sites.
-P0 = no-double-occupancy projector (N_d=0 sector); Q1 = exactly-one-doublon
-sector (the only sector reachable from P0 by a single hop, so the usual
-truncation to virtual states with H_0 eigenvalue U is EXACT here, not an
-approximation).
+D = number of doubly-occupied sites. P0 = no-double-occupancy projector (N_d=0 sector);
+Q1 = exactly-one-doublon sector. A single hop from P0 reaches only Q1, and a path
+P0 -> Q1 -> Q1 -> P0 cannot pass through Q2, so through third order only Q1 appears:
 
-Standard 2nd-order (Schrieffer-Wolff / Rayleigh-Schrodinger) result:
-    H_eff = P0 H_t P0 + P0 H_t Q1 (0 - Q1 H_0 Q1)^{-1} Q1 H_t P0 + O(1/U^2)
-          = T0 - (1/U) T1^dag T1 + O(1/U^2)
-where T0 = P0 H_t P0 (pure hop into an empty site) and
-      T1 = Q1 H_t P0 (hop ONTO an opposite-spin occupied site, creating one
-      doublon -- the only way a single hop leaves P0).
+    H_eff = T0 - V/U + H3/U^2 + O(1/U^3),
+    T0  = P0 H_t P0            (hop into an empty site)
+    T1  = Q1 H_t P0            (hop onto an opposite-spin occupied site: creates the doublon)
+    T0Q = Q1 H_t Q1            (hop that keeps exactly one doublon)
+    V   = T1^T T1
+    H3  = T1^T T0Q T1 - (V T0 + T0 V)/2
 
-This module builds T0, T1 as sparse matrices between the P0 basis and the
-Q1 (single-doublon) basis, forms V = T1^T @ T1 (real, so T1^dag = T1^T),
-and evaluates Tr(T0 V)/D0 (predicted to vanish exactly -- see writeup) and
-Tr(V^2)/D0, Tr(V)/D0, which together with the already-known mu2(infinity)
-= Tr(T0^2)/D0 give a first-principles prediction for the O(1/U^2)
-correction to mu2(U), with NO adjustable parameters.
+Because Tr T0 = 0, the central second moment of the band is
+
+    mu2c(U) = mu2(inf) - 2 Tr(T0 V)/(D0 U) + c2/U^2 + O(1/U^3),
+    c2 = Var(V) + 2 Tr(T0 H3)/D0,   Var(V) = Tr V^2/D0 - (Tr V/D0)^2,
+    Tr(T0 H3) = Tr(T0 T1^T T0Q T1) - Tr(T0^2 V).
+
+Tr(T0 V) = 0 on triangle-free graphs (L >= 4 tori). At lambda = 1 every trace is an
+integer, so c2 is an exact rational. checks/run_checks.py compares c2 with exact
+diagonalization of the full Hubbard model.
 """
 import numpy as np
 from scipy.sparse import lil_matrix, csr_matrix
@@ -96,7 +97,36 @@ def build_T0_T1(L, Nup, Ndown, lam=LAM):
     return csr_matrix(T0), csr_matrix(T1), D0, D1
 
 
-def sw_moments(L, Nup, Ndown, lam=LAM):
+def build_T0Q(L, Nup, Ndown, lam=LAM):
+    """Q1 H_t Q1: hops from a one-doublon state that leave exactly one doublon (a single
+    electron hopping into an empty site, or a doublon electron hopping onto an
+    opposite-spin singly occupied site, which moves the doublon)."""
+    N = L * L
+    neighbors = build_neighbors(L)
+    q1_basis, q1_index = build_Q1_basis(N, Nup, Ndown)
+    D1 = len(q1_basis)
+    T0Q = lil_matrix((D1, D1))
+    for (u, d) in q1_basis:
+        col = q1_index[(u, d)]
+        uset, dset = set(u), set(d)
+        for s in u:
+            for nb in neighbors[s]:
+                if nb in uset:
+                    continue
+                new_u, sign = st.hop_ktuple(u, s, nb)
+                if len(set(new_u) & dset) == 1:
+                    T0Q[q1_index[(new_u, d)], col] += -lam * sign
+        for s in d:
+            for nb in neighbors[s]:
+                if nb in dset:
+                    continue
+                new_d, sign = st.hop_ktuple(d, s, nb)
+                if len(uset & set(new_d)) == 1:
+                    T0Q[q1_index[(u, new_d)], col] += -lam * sign
+    return csr_matrix(T0Q)
+
+
+def sw_moments(L, Nup, Ndown, lam=LAM, third_order=False):
     T0, T1, D0, D1 = build_T0_T1(L, Nup, Ndown, lam)
     V = (T1.T @ T1).tocsr()          # D0 x D0, symmetric, = T1^dag T1
 
@@ -107,21 +137,22 @@ def sw_moments(L, Nup, Ndown, lam=LAM):
     tr_V = V.diagonal().sum()
     tr_Vsq = (V.multiply(V)).sum()
 
-    return dict(D0=D0, D1=D1, mu2_inf=mu2_inf,
-                tr_T0V=tr_T0V, tr_V=tr_V, tr_Vsq=tr_Vsq)
+    out = dict(D0=D0, D1=D1, mu2_inf=mu2_inf, tr_T0V=tr_T0V, tr_V=tr_V, tr_Vsq=tr_Vsq)
+    if third_order:
+        T0Q = build_T0Q(L, Nup, Ndown, lam)
+        A = (T1 @ T0 @ T1.T).tocsr()                      # D1 x D1
+        out["tr_T0H3"] = (T0Q.multiply(A.T)).sum() - ((T0 @ T0).multiply(V)).sum()
+    return out
 
 
 if __name__ == "__main__":
     import time
     for L, Nup, Ndown in [(4, 3, 1), (4, 2, 2), (4, 4, 0), (5, 3, 1), (5, 2, 2)]:
         t0 = time.time()
-        m = sw_moments(L, Nup, Ndown)
-        dt = time.time() - t0
+        m = sw_moments(L, Nup, Ndown, third_order=True)
         D0 = m["D0"]
-        # H_eff = T0 - V/U ; mu2(U) = mu2_inf - 2*tr_T0V/(D0*U) + (tr_Vsq/D0 - (tr_V/D0)**2)/U**2
-        cross_over_D0 = m["tr_T0V"] / D0
         varV = m["tr_Vsq"] / D0 - (m["tr_V"] / D0) ** 2
-        print(f"L={L} ({Nup},{Ndown}): D0={D0:6d} D1={m['D1']:6d} "
-              f"mu2_inf={m['mu2_inf']:.6f} <T0V>/D0={cross_over_D0:.6e} "
-              f"Var(V)={varV:.6f}  predicted 1/U^2 amplitude={varV:.6f}  "
-              f"time={dt:.2f}s")
+        c2 = varV + 2 * m["tr_T0H3"] / D0
+        print(f"L={L} ({Nup},{Ndown}): D0={D0:6d} D1={m['D1']:6d} mu2_inf={m['mu2_inf']:.6f} "
+              f"Tr(T0 V)/D0={m['tr_T0V'] / D0:.1e} Var(V)={varV:.6f} c2={c2:.6f}  "
+              f"time={time.time() - t0:.2f}s")

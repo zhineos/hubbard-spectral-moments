@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-14 12:05-12:34 CET (run); record assembled 2026-11-14",
+  "machine": "callisto, x86_64, Debian GNU/Linux 13, AMD Ryzen 9 5950X, 48 GB (3 x 16 GB DDR4 at 2133 MT/s)",
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "git_commit_of_script": "a58863b",
+  "clone_commit_for_modules": "ba3fe72",
+  "working_tree_dirty": false
+}

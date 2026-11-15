@@ -1,0 +1,17 @@
+Panel (a): n=3, L=5 ...
+  (a) U=10: N_d~1 band mean=10.7715 (n=600), predicted eps_d=10.8000
+  (a) U=20: N_d~1 band mean=20.3840 (n=600), predicted eps_d=20.4000
+  (a) U=40: N_d~1 band mean=40.1918 (n=600), predicted eps_d=40.2000
+Panel (b): n=4, L=4 ...
+  (b) U=10: N_d~0 band mean=-0.204482 (n=10942), predicted 0.000000, bare 0
+  (b) U=10: N_d~1 band mean=10.682159 (n=3338), predicted 10.800000, rel. dev. 1.091%, bare 10
+  (b) U=10: N_d~2 band mean=21.503313 (n=120), predicted 21.600000, rel. dev. 0.448%, bare 20
+  (b) U=20: N_d~0 band mean=-0.106907 (n=10920), predicted 0.000000, bare 0
+  (b) U=20: N_d~1 band mean=20.320723 (n=3360), predicted 20.400000, rel. dev. 0.389%, bare 20
+  (b) U=20: N_d~2 band mean=40.748303 (n=120), predicted 40.800000, rel. dev. 0.127%, bare 40
+  (b) U=40: N_d~0 band mean=-0.053364 (n=10920), predicted 0.000000, bare 0
+  (b) U=40: N_d~1 band mean=40.160092 (n=3360), predicted 40.200000, rel. dev. 0.099%, bare 40
+  (b) U=40: N_d~2 band mean=80.373547 (n=120), predicted 80.400000, rel. dev. 0.033%, bare 80
+Panel (c): n=4 spin compositions, L=4, U=40 ...
+wrote results/fig_sectors.png
+exit 0 after 1756 s

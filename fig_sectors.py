@@ -16,22 +16,22 @@ figure uses the DOUBLON color family (green shades, darker = more
 doublons) rather than an arbitrary per-U or per-composition color
 cycle.
 
-Diagonalization strategy: panels (a) and the n=3-like 3+1 sector of
-panel (c) use small enough Hamiltonians (dim ~7500-9000) that dense
-eigh is fast and light. Panel (b)'s n=4, L=4 sector (dim 14400) is not
--- a full dense eigh there needs several GB and, on a loaded machine,
-can trigger severe swap thrashing. Instead we get the N_d=0 and N_d=2
-bands via sparse extremal Lanczos (which='SA'/'LA', matrix-vector
-products only, no factorization, ~50MB), and the interior N_d=1 band
-via exact diagonalization of the projected operator P_1 H P_1
-restricted to the (small, ~3360-dimensional) N_d=1 subspace -- the
-same "projected operator" logic used throughout this paper, just
-applied one moment-order down.
+Diagonalization: every interacting composition uses the full spectrum
+from dense exact diagonalization, with <N_d> computed from each
+eigenvector. The single-species (4,0) column of panel (c) needs none:
+its spectrum is the set of sums of four distinct single-particle
+energies, of which a random sample is plotted. Panel (a)
+and the 3+1 sector of panel (c) have dim ~7500-9000. Panel (b)'s 2+2,
+L=4 sector has dim C(16,2)^2 = 14400; its dense eigh with eigenvectors
+needs about 8 GB of memory (run it on a machine with room to spare).
+An eigenstate is assigned to sector N_d = k when |<N_d> - k| < 0.5.
+(An earlier version took only the 300 lowest and 300 highest levels by
+sparse Lanczos and the N_d=1 band from the projected operator P_1 H P_1,
+which truncated the N_d=0 band and shifted its plotted mean.)
 """
 import numpy as np
 import matplotlib.pyplot as plt
 import gc
-from scipy.sparse.linalg import eigsh
 import plotstyle as ps
 
 import four_electron as fe
@@ -64,29 +64,17 @@ def dense_eigh(H):
     return w, v
 
 
-def four_electron_spectrum(L, U, k_extremal=300):
-    """N_d=0 and N_d=2 bands via extremal Lanczos; N_d=1 band via
-    exact diagonalization of the projected operator on the small
-    N_d=1 subspace. Returns concatenated (E, N_d) arrays."""
+def four_electron_spectrum(L, U):
+    """Full spectrum of the 2 up + 2 down sector by dense exact
+    diagonalization, with <N_d> of every eigenstate."""
     H, indicator, pairs, index, N = fe.build_four_electron_H(L, U)
-
-    w0, v0 = eigsh(H, k=k_extremal, which="SA")
-    Nd0 = fe.n_d_expectation(v0, indicator)
-
-    w2, v2 = eigsh(H, k=k_extremal, which="LA")
-    Nd2 = fe.n_d_expectation(v2, indicator)
-    clean2 = Nd2 > 1.5
-    w2, Nd2 = w2[clean2], Nd2[clean2]
-
-    idx1 = np.where(np.abs(indicator - 1.0) < 0.5)[0]
-    H1 = H[idx1][:, idx1].toarray()
-    w1 = np.linalg.eigvalsh(H1)
-    Nd1 = np.ones_like(w1)
-    del H, H1
+    w, v = dense_eigh(H)
+    del H
     gc.collect()
-
-    return (np.concatenate([w0, w1, w2]),
-            np.concatenate([Nd0, Nd1, Nd2]))
+    Nd = fe.n_d_expectation(v, indicator)
+    del v
+    gc.collect()
+    return w, Nd
 
 
 MARKER_BY_U = {10.0: "o", 20.0: "s", 40.0: "^"}
@@ -175,9 +163,11 @@ def panel_b(ax, cache):
             w, Nd = four_electron_spectrum(L, U)
             cache[U] = (w, Nd)
         per_U[U] = (w, Nd)
-        mean_E, count = sector_mean(w, Nd, 2)
-        print(f"  (b) U={U:g}: N_d~2 band mean={mean_E:.4f} (n={count}), "
-              f"predicted 2*eps_d={2*eps_d(U):.4f}", flush=True)
+        for k, pred in ((0, 0.0), (1, eps_d(U)), (2, 2 * eps_d(U))):
+            mean_E, count = sector_mean(w, Nd, k)
+            rel = f", rel. dev. {abs(mean_E - pred) / pred:.3%}" if pred else ""
+            print(f"  (b) U={U:g}: N_d~{k} band mean={mean_E:.6f} (n={count}), "
+                  f"predicted {pred:.6f}{rel}, bare {k * U:g}", flush=True)
 
     handles = plot_panel(ax, U_values, per_U, sector_ks=[0, 1, 2],
                           sector_preds={0: lambda U: 0.0, 1: eps_d,

@@ -1,0 +1,1 @@
+cd ~/hsm-fig3 && PYTHONPATH=$HOME/git/hubbard-spectral-moments ~/.virtualenvs/hubbard/bin/python fig_sectors.py

@@ -1,0 +1,111 @@
+{
+  "claims": [
+    "fig:sectors"
+  ],
+  "figure": "results/fig_sectors.png (gitignored; regenerate with fig_sectors.py)",
+  "figure_sha256": "86851ae3eb5cfa9f69f39d7666e11d0688bf25ee1d69e9fa8c4c4793e2f803d6",
+  "script": "fig_sectors.py",
+  "script_sha256": "f7c0ec99423e9ab6a72ed3d805523f76b4350ba24a942d5cd2427c32b30f4a2d",
+  "script_commit": "a58863b (byte-identical script)",
+  "sector_means": [
+    {
+      "panel": "a",
+      "U": 10,
+      "N_d": 1,
+      "mean": 10.7715,
+      "count": 600,
+      "predicted": 10.8
+    },
+    {
+      "panel": "a",
+      "U": 20,
+      "N_d": 1,
+      "mean": 20.384,
+      "count": 600,
+      "predicted": 20.4
+    },
+    {
+      "panel": "a",
+      "U": 40,
+      "N_d": 1,
+      "mean": 40.1918,
+      "count": 600,
+      "predicted": 40.2
+    },
+    {
+      "panel": "b",
+      "U": 10,
+      "N_d": 0,
+      "mean": -0.204482,
+      "count": 10942,
+      "predicted": 0.0
+    },
+    {
+      "panel": "b",
+      "U": 10,
+      "N_d": 1,
+      "mean": 10.682159,
+      "count": 3338,
+      "predicted": 10.8
+    },
+    {
+      "panel": "b",
+      "U": 10,
+      "N_d": 2,
+      "mean": 21.503313,
+      "count": 120,
+      "predicted": 21.6
+    },
+    {
+      "panel": "b",
+      "U": 20,
+      "N_d": 0,
+      "mean": -0.106907,
+      "count": 10920,
+      "predicted": 0.0
+    },
+    {
+      "panel": "b",
+      "U": 20,
+      "N_d": 1,
+      "mean": 20.320723,
+      "count": 3360,
+      "predicted": 20.4
+    },
+    {
+      "panel": "b",
+      "U": 20,
+      "N_d": 2,
+      "mean": 40.748303,
+      "count": 120,
+      "predicted": 40.8
+    },
+    {
+      "panel": "b",
+      "U": 40,
+      "N_d": 0,
+      "mean": -0.053364,
+      "count": 10920,
+      "predicted": 0.0
+    },
+    {
+      "panel": "b",
+      "U": 40,
+      "N_d": 1,
+      "mean": 40.160092,
+      "count": 3360,
+      "predicted": 40.2
+    },
+    {
+      "panel": "b",
+      "U": 40,
+      "N_d": 2,
+      "mean": 80.373547,
+      "count": 120,
+      "predicted": 80.4
+    }
+  ],
+  "exit": 0,
+  "wall_time_s": 1756,
+  "note": "Record assembled after the run from its log, on 2026-11-14: the run was made on callisto from 12:05 to 12:34 CET with the round-3 fig_sectors.py (identical to commit a58863b) and the helper modules of the callisto clone at ba3fe72 (four_electron.py, four_electron_31.py, three_electron.py, plotstyle.py, sector_theory.py: unchanged between ba3fe72 and a58863b). The sector means at U=10,40 equal evidence/2026-11-13-finite-U where both record them, except that at U=10 the N_d=0 and N_d=1 bands overlap and mix, so the N_d=1 count is implementation-dependent (3338 here, 3333 there)."
+}

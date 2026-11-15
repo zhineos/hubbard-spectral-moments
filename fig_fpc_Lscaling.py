@@ -8,12 +8,12 @@ selection from the L^2 single-particle levels: the population
 variance of such a sum is EXACTLY k*sigma1^2*(N-k)/(N-1) (a classical
 finite-population identity, not an approximation), with sigma1^2 the
 population variance of the true single-particle tight-binding
-spectrum -- no diagonalization, no sampling, and no assumed value of
-sigma1^2 needed. The FPC "prediction" plugs in the a-priori continuum
-value sigma1^2=z*lambda^2; the "exact" points use sigma1^2 measured
-directly from the finite-L spectrum. Their coincidence at every L is
-therefore a nontrivial check that the finite lattice reproduces the
-continuum coordination number exactly, not merely asymptotically.
+spectrum. The plotted "exact" points are computed by full enumeration:
+every one of the C(N,k) many-body energies (sums of k distinct
+single-particle levels) is formed and their variance taken, with no use
+of the identity. The theory line is (N-k)/(N-1). The agreement at every
+L is therefore an independent check of the finite-population identity
+(proved in lean/, FinitePopulation.lean) on the actual torus spectra.
 
 This figure is about mu_2 (population variance), so it uses the
 CONNECTIVITY color family.
@@ -35,12 +35,12 @@ markers = ps.MARKERS[:len(k_values)]
 
 
 def brute_force_variance(eps, k):
-    """Full enumeration over all C(N,k) subsets -- used only as a
-    small-N validation that the closed-form identity below is not
-    hiding an indexing bug, not for the plotted points."""
+    """Variance of all C(N,k) many-body energies, by full enumeration of the
+    k-subsets (vectorized; C(100,4) = 3.9 million subsets at L = 10)."""
     N = len(eps)
-    sums = np.array([eps[list(c)].sum() for c in combinations(range(N), k)])
-    return np.var(sums)
+    idx = np.fromiter((i for c in combinations(range(N), k) for i in c),
+                      dtype=np.int16).reshape(-1, k)
+    return np.var(eps[idx].sum(axis=1))
 
 
 # small-N sanity check (L=3, N=9): closed form vs full enumeration
@@ -71,7 +71,7 @@ for k, color, marker in zip(k_values, shades, markers):
         eps = np.linalg.eigvalsh(adjacency_matrix(L, neighbors, LAM).toarray())
         N = L * L
         sigma1_sq_measured = np.var(eps)
-        exact = k * sigma1_sq_measured * (N - k) / (N - 1)
+        exact = brute_force_variance(eps, k)                  # full enumeration
         fpc = k * (Z_THEORY * LAM**2) * (N - k) / (N - 1)
         pred = (N - k) / (N - 1)
         ratio_pts.append(exact / (k * sigma1_sq_measured))
@@ -96,7 +96,10 @@ ps.style_axes(ax)
 fig.savefig("results/fpc_Lscaling.png")
 print("wrote results/fpc_Lscaling.png")
 
-print(f"{'L':>3} {'k':>2} {'sigma1^2':>10} {'exact':>12} {'FPC':>12} {'rel.diff':>10}")
+print(f"{'L':>3} {'k':>2} {'sigma1^2':>10} {'enumerated':>12} {'FPC':>12} {'rel.diff':>10}")
+worst = 0.0
 for L, k, s1, ex, fpc in results:
     reldiff = abs(ex - fpc) / fpc if fpc else 0.0
+    worst = max(worst, reldiff)
     print(f"{L:3d} {k:2d} {s1:10.6f} {ex:12.6f} {fpc:12.6f} {reldiff:10.2e}")
+print(f"largest relative difference, enumeration vs FPC formula: {worst:.1e}")

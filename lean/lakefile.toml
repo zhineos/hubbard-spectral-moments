@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: Apache-2.0
+name = "HubbardMoments"
+version = "0.1.0"
+defaultTargets = ["HubbardMoments"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+# Mathlib release v4.35.0; lake-manifest.json pins every dependency.
+rev = "56a005855ea17e0b0958f73ec801ae140b0a1679"
+
+[[lean_lib]]
+name = "HubbardMoments"
+
+# Not default targets: the challenge (reference statements, all `sorry`) and the negative
+# controls, which `lake comparator` must reject. See comparator.json and NegativeControls/.
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "NegativeControls"
+globs = ["NegativeControls.+"]

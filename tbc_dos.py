@@ -257,10 +257,12 @@ def scan_all(U_values, L_rel=21, n_k=48):
 
 
 def plot_kgrid_Uband(scans, L_rel, n_k):
+    # 2 x 2 grid (rev. 2026-11-14): one row of four panels was unreadable at print size
     n = len(scans)
-    fig, axes = plt.subplots(1, n, figsize=(5 * n, 5))
-    if n == 1:
-        axes = [axes]
+    ncol = 2 if n > 1 else 1
+    nrow = (n + ncol - 1) // ncol
+    fig, axes = plt.subplots(nrow, ncol, figsize=(4.6 * ncol, 3.6 * nrow))
+    axes = np.atleast_1d(axes).ravel()
 
     for ax, U in zip(axes, scans):
         E = scans[U]
@@ -279,12 +281,14 @@ def plot_kgrid_Uband(scans, L_rel, n_k):
             label="2D DOS prediction"
         )
 
-        ax.set_title(f"$U = {U:g}\\lambda$")
-        ax.set_xlabel(r"$E - \varepsilon_d\ (\lambda)$")
-        ax.legend(fontsize=7.5, frameon=False)
+        ax.set_title(f"$U = {U:g}\\lambda$", fontsize=13)
+        ax.set_xlabel(r"$E - \varepsilon_d\ (\lambda)$", fontsize=12)
+        ax.tick_params(labelsize=11)
+        ax.legend(fontsize=10, frameon=False)
         ax.grid(alpha=0.2)
 
-    axes[0].set_ylabel("Normalized DOS")
+    for ax in axes[::ncol]:
+        ax.set_ylabel("Normalized DOS", fontsize=12)
     fig.tight_layout()
     fig.savefig(f"{OUT}/kgrid_compare_Uband_vs_2D.png", dpi=200)
     print(f"Saved: {OUT}/kgrid_compare_Uband_vs_2D.png")

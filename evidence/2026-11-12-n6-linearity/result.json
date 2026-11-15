@@ -1,0 +1,54 @@
+{
+  "claim": "tab:n6test",
+  "lattice": "5x5 torus",
+  "n": 6,
+  "lambda": 1,
+  "compositions": {
+    "6,0": {
+      "D": 177100,
+      "P_same": 15,
+      "mu2": "19",
+      "mu4": "253593/253",
+      "mu4_decimal": "1002.343874",
+      "paper": "1002.343874",
+      "matches_paper_to_6_decimals": true
+    },
+    "5,1": {
+      "D": 1062600,
+      "P_same": 10,
+      "mu2": "19",
+      "mu4": "255683/253",
+      "mu4_decimal": "1010.604743",
+      "paper": "1010.604743",
+      "matches_paper_to_6_decimals": true
+    },
+    "4,2": {
+      "D": 2656500,
+      "P_same": 7,
+      "mu2": "19",
+      "mu4": "256937/253",
+      "mu4_decimal": "1015.561265",
+      "paper": "1015.561265",
+      "matches_paper_to_6_decimals": true
+    },
+    "3,3": {
+      "D": 3542000,
+      "P_same": 6,
+      "mu2": "19",
+      "mu4": "257355/253",
+      "mu4_decimal": "1017.213439",
+      "paper": "1017.213439",
+      "matches_paper_to_6_decimals": true
+    }
+  },
+  "slopes_between_consecutive_points": [
+    "-38/23",
+    "-38/23",
+    "-38/23"
+  ],
+  "exactly_linear_in_P_same": true,
+  "A": "259863/253",
+  "alpha": "-38/23",
+  "wall_time_s": 89.0,
+  "peak_rss_mb": 38.0
+}

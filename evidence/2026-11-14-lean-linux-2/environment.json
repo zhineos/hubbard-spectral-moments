@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-14 15:37:39 CET",
+  "machine": "x86_64",
+  "os": "Debian GNU/Linux 13 (trixie)",
+  "kernel": "6.12.117+deb13-amd64",
+  "cpus": 1,
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "lean": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+  "lake": "Lake version 5.0.0-src+eb6cafb (Lean version 4.35.0)",
+  "elan": "elan 4.2.4 (227caca13 2026-08-25)",
+  "bwrap": "bubblewrap 0.12.0",
+  "lean_toolchain": "leanprover/lean4:v4.35.0",
+  "mathlib_rev": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "git_commit": "394d26491d750e6eda837f7eac41c5bd094d6b06",
+  "working_tree_dirty": false
+}

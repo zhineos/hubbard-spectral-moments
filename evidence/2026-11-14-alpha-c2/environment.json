@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-14 13:12:12 CET",
+  "machine": "arm64",
+  "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "cpus": 8,
+  "python": "3.13.11",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "git_commit": "a58863b3e7434fb31a8fb9b32487f41201b9c89e",
+  "working_tree_dirty": false
+}

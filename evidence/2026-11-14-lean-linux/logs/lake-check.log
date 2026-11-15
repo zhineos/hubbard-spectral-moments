@@ -1,0 +1,6 @@
+Resolving dependencies
+Building and exporting
+Running Lean default kernel on solution
+Lean default kernel accepts the solution
+Uses axioms: propext, Quot.sound, Classical.choice
+✔ [9063/9064] Built HubbardMoments (2.1s)

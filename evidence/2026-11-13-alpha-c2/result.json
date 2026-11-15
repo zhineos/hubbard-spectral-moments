@@ -1,0 +1,39 @@
+{
+  "claims": [
+    "eq:alphaN#numeric",
+    "sec:SW#beta-trend"
+  ],
+  "alpha": [
+    {
+      "L": 6,
+      "n": 4,
+      "slopes": [
+        "-2816/1785",
+        "-2816/1785"
+      ],
+      "formula": "-2816/1785",
+      "all_equal_formula": true
+    },
+    {
+      "L": 6,
+      "n": 5,
+      "slopes": [
+        "-124/85",
+        "-124/85"
+      ],
+      "formula": "-124/85",
+      "all_equal_formula": true
+    }
+  ],
+  "c2": {
+    "L": 5,
+    "n": 5,
+    "c2(4,1)": "-29968/2277",
+    "c2(3,2)": "-4988/253",
+    "c2/NuNd (4,1)": -3.290294246815986,
+    "c2/NuNd (3,2)": -3.2859025032938076,
+    "relative_spread_percent": 0.134
+  },
+  "wall_time_s": 401.8,
+  "peak_rss_mb": 5151.8
+}

@@ -1,0 +1,1 @@
+python checks/lean_linux_run.py --record

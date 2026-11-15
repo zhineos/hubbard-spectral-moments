@@ -1,0 +1,108 @@
+{
+  "passed": false,
+  "steps": [
+    {
+      "step": "hygiene",
+      "files": 23,
+      "issues": [],
+      "pass": true
+    },
+    {
+      "step": "clean build (lake build)",
+      "command": "lake build",
+      "cwd": "lean",
+      "exit": 0,
+      "expected_exit": 0,
+      "wall_time_s": 36.1,
+      "pass": true,
+      "warnings": 0
+    },
+    {
+      "step": "axiom audit",
+      "command": "lake env lean AxiomAudit.lean",
+      "cwd": "lean",
+      "exit": 0,
+      "expected_exit": 0,
+      "wall_time_s": 5.4,
+      "pass": true,
+      "audit": {
+        "theorems": 46,
+        "expected": 46,
+        "missing": [],
+        "extra": [],
+        "non_permitted": {},
+        "ok": true
+      }
+    },
+    {
+      "step": "lake comparator --paranoid",
+      "command": "lake comparator --paranoid",
+      "cwd": "lean",
+      "exit": 0,
+      "expected_exit": 0,
+      "wall_time_s": 90.9,
+      "pass": true,
+      "must_contain": "Your solution is okay!"
+    },
+    {
+      "step": "negative control: weakened",
+      "command": "lake comparator --config=NegativeControls/weakened.json",
+      "cwd": "lean",
+      "exit": 1,
+      "expected_exit": 1,
+      "wall_time_s": 18.9,
+      "pass": true,
+      "must_contain": "statement do not match: 'HubbardMoments.secondMomentTheorem'"
+    },
+    {
+      "step": "negative control: added-axiom",
+      "command": "lake comparator --config=NegativeControls/added-axiom.json",
+      "cwd": "lean",
+      "exit": 1,
+      "expected_exit": 1,
+      "wall_time_s": 18.8,
+      "pass": true,
+      "must_contain": "Illegal axiom detected: 'HubbardMoments.secondMomentCheat'"
+    },
+    {
+      "step": "negative control: changed-definition",
+      "command": "lake comparator --config=NegativeControls/changed-definition.json",
+      "cwd": "lean",
+      "exit": 1,
+      "expected_exit": 1,
+      "wall_time_s": 9.9,
+      "pass": true,
+      "must_contain": "Const does not match between challenge and target 'HubbardMoments.Spec.SecondMomentTheorem'"
+    },
+    {
+      "step": "negative control: sorry",
+      "command": "lake comparator --config=NegativeControls/sorry.json",
+      "cwd": "lean",
+      "exit": 1,
+      "expected_exit": 1,
+      "wall_time_s": 19.0,
+      "pass": true,
+      "must_contain": "Illegal axiom detected: 'sorryAx'"
+    },
+    {
+      "step": "numerical checks",
+      "command": "/home/kov/.virtualenvs/hubbard/bin/python checks/run_checks.py",
+      "cwd": ".",
+      "exit": 0,
+      "expected_exit": 0,
+      "wall_time_s": 87.5,
+      "pass": true
+    },
+    {
+      "step": "lake check",
+      "command": "lake check",
+      "cwd": "lean",
+      "exit": 1,
+      "expected_exit": 0,
+      "wall_time_s": 344.5,
+      "pass": false
+    }
+  ],
+  "wall_time_s": 632.4,
+  "peak_rss_children_mb": 3230.3
+}

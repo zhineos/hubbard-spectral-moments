@@ -146,8 +146,10 @@ def flux_sweep(L=5, U=15.0, lam=LAM):
         band, _ = isolate_uband(H, cutoff)
         n_isolated[k] = len(band)
 
-        Hd_doubled = eps_d * np.eye(N) + single_particle_H(L, t_d, 2 * alpha)
-        Hd_undoubled = eps_d * np.eye(N) + single_particle_H(L, t_d, alpha)
+        # The doublon hops with +t_d (E = eps_d + 2 t_d (cos Kx + cos Ky), maximum at K = 0);
+        # single_particle_H(L, hop, .) builds -hop * sum e^{i phase} c^dag c, hence hop = -t_d.
+        Hd_doubled = eps_d * np.eye(N) + single_particle_H(L, -t_d, 2 * alpha)
+        Hd_undoubled = eps_d * np.eye(N) + single_particle_H(L, -t_d, alpha)
         wd_doubled = np.sort(np.linalg.eigvalsh(Hd_doubled))
         wd_undoubled = np.sort(np.linalg.eigvalsh(Hd_undoubled))
 
