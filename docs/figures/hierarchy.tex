@@ -1,0 +1,136 @@
+% README figure: the spectral-moment hierarchy (the paper's Fig. 6, redrawn for the README).
+% Two versions from this one file: hierarchy.svg (light: white background) and
+% hierarchy-dark.svg (softer light ink on a transparent background, for GitHub's dark themes);
+% the README chooses between them with a <picture> element.
+% Build in a scratch folder (the intermediate PDFs are never committed); needs pdflatex with
+% TikZ, and pdftocairo (poppler):
+%   d=$(mktemp -d) && cp docs/figures/hierarchy.tex "$d" && cd "$d"
+%   pdflatex hierarchy.tex
+%   pdflatex -jobname=hierarchy-dark '\def\darkmode{}\input{hierarchy.tex}'
+%   for f in hierarchy hierarchy-dark; do pdftocairo -svg $f.pdf $f.svg; done
+%   then copy hierarchy.svg and hierarchy-dark.svg back to docs/figures/.
+% Changes from the paper's Fig. 6: label i beside the occupied site and j beside the bottom
+% neighbor in (a), so neither touches an arrow or the caption; the two squares of (b) further
+% apart, so the labels k and m no longer run together; the dark version.
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta,positioning,backgrounds}
+\definecolor{ExchVermillion}{HTML}{D55E00}  % Okabe-Ito, as in the paper
+\definecolor{DoublonGreen}{HTML}{009E73}
+\ifdefined\darkmode
+  % Dark palette; each value can be preset before \input to try another strength.
+  \providecommand{\InkHex}{C9D1D9}       % lines and text: GitHub's softer dark-theme gray, not its brightest text color
+  \providecommand{\OccHex}{6E7681}       % occupied sites: mid gray, so "filled = occupied" without glare
+  \providecommand{\OccTextHex}{F0F6FC}   % arrows inside occupied sites
+  \providecommand{\BlueHex}{2B93CE}      % between the paper's blue and Okabe-Ito sky blue: as bright as the other two colors
+  \providecommand{\FadedPct}{85}         % the dashed return hop: green, slightly dimmed
+  \definecolor{Ink}{HTML}{\InkHex}
+  \definecolor{ConnBlue}{HTML}{\BlueHex}
+  \definecolor{OccFill}{HTML}{\OccHex}
+  \definecolor{OccText}{HTML}{\OccTextHex}
+  \colorlet{DoublonFaded}{DoublonGreen!\FadedPct!black}
+  \newcommand{\EmpFill}{none}
+  \newcommand{\BgFill}{none}
+\else
+  \colorlet{Ink}{black}
+  \definecolor{ConnBlue}{HTML}{0072B2}
+  \colorlet{OccFill}{black!75}
+  \colorlet{OccText}{white}
+  \colorlet{DoublonFaded}{DoublonGreen!55!white}
+  \newcommand{\EmpFill}{white}
+  \newcommand{\BgFill}{white}
+\fi
+\newsavebox{\figbox}
+\begin{document}
+\savebox{\figbox}{%
+\begin{tikzpicture}[
+  show background rectangle,
+  background rectangle/.style={fill=\BgFill, draw=none},
+  color=Ink,
+  inner frame xsep=10pt, inner frame ysep=8pt,
+  site/.style={circle, draw, thick, minimum size=5mm, inner sep=0},
+  occ/.style={site, fill=OccFill, text=OccText},
+  emp/.style={site, fill=\EmpFill},
+  hop/.style={-{Latex[length=2mm]}, thick},
+  connhop/.style={hop, ConnBlue},
+  exchhop/.style={hop, ExchVermillion},
+  doubhop/.style={hop, DoublonGreen},
+  vdoubhop/.style={doubhop, dashed, DoublonFaded},
+  lbl/.style={font=\footnotesize},
+  panelcap/.style={font=\footnotesize, align=center, text width=3.6cm},
+  every node/.style={font=\small}
+]
+
+% ---- panel (a): connectivity, mu2 ----
+\node[font=\small\bfseries, text=ConnBlue] at (0.5,3.6) {(a) connectivity: $\mu_2$};
+\node[emp] (aU) at (0.5,3.0) {};
+\node[occ] (a1) at (0.5,2.0) {};
+\node[emp] (aD) at (0.5,1.0) {};
+\node[emp] (aL) at (-0.5,2.0) {};
+\node[emp] (aR) at (1.5,2.0) {};
+\node[lbl, anchor=north east, inner sep=1pt] at (a1.south west) {$i$};
+\node[lbl, right=0.5mm of aD] {$j$};
+\draw[connhop] (a1) -- (aU);
+\draw[connhop] (a1) -- (aD);
+\draw[connhop] (a1) -- (aL);
+\draw[connhop] (a1) -- (aR);
+\node[panelcap] at (0.5,0.1) {each allowed hop $\to$ one term in $\mu_2$};
+
+% ---- panel (b): exchange channels, mu4 ----
+\node[font=\small\bfseries, text=ExchVermillion] at (6.1,3.6) {(b) exchange: $\mu_4$};
+
+\node[occ] (i1) at (4.2,3.0) {};
+\node[emp] (k1) at (5.2,3.0) {};
+\node[emp] (l1) at (4.2,2.0) {};
+\node[occ] (j1) at (5.2,2.0) {};
+\node[lbl, left=0.5mm of i1] {$i$};
+\node[lbl, right=0.5mm of k1] {$k$};
+\node[lbl, left=0.5mm of l1] {$l$};
+\node[lbl, right=0.5mm of j1] {$j$};
+\draw[exchhop] (i1) to[bend left=15] (k1);
+\draw[exchhop] (k1) to[bend left=15] (j1);
+\draw[exchhop] (j1) to[bend left=15] (l1);
+\draw[exchhop] (l1) to[bend left=15] (i1);
+\node[panelcap] at (4.7,1.15) {diagonal channel\\($2{+}2$ hops)};
+
+\node[emp] (m2) at (7.0,3.0) {};
+\node[emp] (p2) at (8.0,3.0) {};
+\node[occ] (i2) at (7.0,2.0) {};
+\node[occ] (j2) at (8.0,2.0) {};
+\node[lbl, left=0.5mm of m2] {$m$};
+\node[lbl, right=0.5mm of p2] {$p$};
+\node[lbl, left=0.5mm of i2] {$i$};
+\node[lbl, right=0.5mm of j2] {$j$};
+\draw[exchhop] (i2) to[bend left=15] (m2);
+\draw[exchhop] (m2) to[bend left=15] (p2);
+\draw[exchhop] (p2) to[bend left=15] (j2);
+\draw[exchhop] (j2) to[bend left=30] (i2);
+\node[panelcap] at (7.5,1.15) {edge channel\\($3{+}1$ hops)};
+
+\node[panelcap, text width=7.2cm] at (6.1,0.15) {same spin $\Rightarrow$ both channels return\\to $|\alpha\rangle$: exchange-sensitive};
+
+% ---- panel (c): virtual doublon, finite U ----
+\node[font=\small\bfseries, text=DoublonGreen] at (11.3,3.6) {(c) virtual doublon: finite $U$};
+\node[lbl] at (11.3,3.15) {$T_1$: cost $U$};
+\node[occ] (ci) at (10.7,2.6) {\tiny$\uparrow$};
+\node[occ] (cj) at (11.9,2.6) {\tiny$\downarrow$};
+\node[lbl, below=0.5mm of ci] {$i$};
+\node[lbl, below=0.5mm of cj] {$j$};
+\draw[doubhop] (ci) to[bend left=15] (cj);
+
+\node[emp] (ci2) at (10.7,1.5) {};
+\node[occ] (cj2) at (11.9,1.5) {\tiny$\uparrow\downarrow$};
+\node[lbl, left=0.5mm of ci2] {$i$};
+\node[lbl, right=1mm of cj2] {doublon at $j$};
+\draw[vdoubhop] (cj2) to[bend left=15] (ci2);
+\node[lbl, text=DoublonFaded] at (11.3,1.0) {$T_1^\dagger$: return$/U$};
+
+\node[panelcap, text width=4.4cm] at (11.3,0.4) {$T_1^\dagger T_1/U$: virtual excursion into the doublon sector};
+
+\end{tikzpicture}}
+% page = the figure, nothing else (no standalone class or pdfcrop here)
+\pdfpagewidth=\wd\figbox \pdfpageheight=\dimexpr\ht\figbox+\dp\figbox\relax
+\hoffset=-1in \voffset=-1in
+\shipout\hbox{\usebox{\figbox}}
+\end{document}

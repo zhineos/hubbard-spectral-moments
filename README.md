@@ -9,6 +9,22 @@ of the no-double-occupancy hopping operator $H_\infty=P_0H_tP_0$, starting from 
 two-electron problem of D. Souza and F. Claro (2010), whose figures the first scripts here
 reproduce.
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/figures/hierarchy-dark.svg">
+    <img src="docs/figures/hierarchy.svg" width="100%"
+         alt="Three schematic panels. (a) An occupied site with arrows to its four empty neighbors. (b) Two four-hop closed paths of two particles around a square plaquette, a diagonal and an edge channel. (c) A hop onto an opposite-spin neighbor creating a doublon, and the return hop.">
+  </picture>
+</p>
+
+**The moment hierarchy** (the paper's Fig. 6). (a) $\mu_2$ counts single allowed hops of a
+particle to an empty neighbor: a spin-blind connectivity count. (b) $\mu_4$ is the first
+moment to see exchange: two four-hop closed paths, a diagonal and an edge channel, return the
+occupied sites $\{i,j\}$ to themselves, and restore the initial state only when $i$ and $j$
+carry the same spin. (c) At finite $U$, a hop onto an opposite-spin neighbor creates a
+virtual doublon at energy cost $U$; with the return hop it corrects $\mu_2$ only at order
+$U^{-2}$.
+
 ## The results in brief
 
 1. **Second moment, exactly.** For $n$ fermions on any finite graph with $N$ sites and any
@@ -139,7 +155,9 @@ set size.
 | `mu4_flux_validation.py` | Fig. 10 (Appendix E, μ₄ under uniform flux) | `mu4_flux_response.png` | 11 s | 0.1 GB |
 | `doublon_flux_validation.py` | Fig. 11 (Appendix E, doublon flux response: charge-2e check) | `doublon_flux_response.png` | 27 s | 0.2 GB |
 
-Figs. 6 and 8 are schematics drawn directly in LaTeX and have no script.
+Figs. 6 and 8 are schematics drawn directly in LaTeX and have no script. The figure at the
+top of this README is Fig. 6 redrawn; its source and build commands are in
+[`docs/figures/hierarchy.tex`](docs/figures/hierarchy.tex).
 
 ### 3. Checks that print to the terminal
 

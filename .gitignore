@@ -19,6 +19,9 @@
 *.jpeg
 *.eps
 *.svg
+# except the README figure: generated from docs/figures/hierarchy.tex, but committed so that
+# GitHub can display it
+!/docs/figures/*.svg
 
 # --- LaTeX build artifacts ---
 *.aux
