@@ -3,6 +3,21 @@
 Reader-facing record of releases and corrections. Changes to frozen claims are also logged,
 with their reasons, in `docs/drift-log.tsv`.
 
+## 1.0.1 (2026-11-17)
+
+The paper is on arXiv: [arXiv:2611.19929](https://arxiv.org/abs/2611.19929), with the
+Supplemental Material as its ancillary file. Nothing changes in the code, the Lean
+formalization, the checks, the run records or the claims.
+
+- `CITATION.cff` and the README cite the paper and the repository's Zenodo DOI for all
+  versions, 10.5281/zenodo.24244236 (v1.0.0 is 10.5281/zenodo.24244237); the README has a
+  BibTeX entry for each.
+- README: a figure of the moment hierarchy (the paper's Fig. 6 redrawn, with a version for
+  dark themes; source in `docs/figures/hierarchy.tex`).
+- `docs/method.md`: the commits named in the run records belong to the development history
+  before the release, which is not public; a table says, for each record, how the code it ran
+  compares with the released code.
+
 ## 1.0.0 (2026-11-15)
 
 First public version, to accompany the preprint.

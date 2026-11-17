@@ -1,8 +1,8 @@
 # Hubbard spectral moments
 
 Code, checks, run records and a Lean 4 formalization for the paper *Spectral Moments of the
-Projected Hubbard Configuration Graph* (D. Souza, 2026; preprint, the arXiv link will be
-added here).
+Projected Hubbard Configuration Graph: Connectivity, Exchange, and Virtual Doublons*
+(D. Souza, 2026, [arXiv:2611.19929](https://arxiv.org/abs/2611.19929)).
 
 The paper studies few fermions in the strongly repulsive Hubbard model through the moments
 of the no-double-occupancy hopping operator $H_\infty=P_0H_tP_0$, starting from the
@@ -231,8 +231,10 @@ behind `evidence/`; [`lean/README.md`](lean/README.md) explains the build, the a
 
 ## Manuscript
 
-The paper and its Supplemental Material are on arXiv; their sources are not in this
-repository. `manuscript/` is kept as an empty folder: `paper.tex` loads its figures from
+The paper is on arXiv, [arXiv:2611.19929](https://arxiv.org/abs/2611.19929), and its
+Supplemental Material (notes S1–S12) is the paper's
+[ancillary file](https://arxiv.org/src/2611.19929v1/anc/Supplemental_Material.pdf); their
+sources are not in this repository. `manuscript/` is kept as an empty folder: `paper.tex` loads its figures from
 `../results/`, so generate them first (section 2). The references live in
 `manuscript/references.bib` and are formatted with the APS style
 `apsrev4-2` (part of REVTeX, included in TeX Live), so BibTeX runs between
@@ -264,9 +266,37 @@ one only prints `module loaded`.
 
 ## Citing and license
 
-Please cite the paper, and this repository through its Zenodo record (see
-[`CITATION.cff`](CITATION.cff); GitHub's "Cite this repository" uses it). Code and Lean
-formalization: Apache-2.0 ([`LICENSE`](LICENSE)).
+Please cite the paper, [arXiv:2611.19929](https://arxiv.org/abs/2611.19929), and this
+repository through its Zenodo record,
+[doi:10.5281/zenodo.24244236](https://doi.org/10.5281/zenodo.24244236). That DOI covers all
+versions; each release also has its own DOI (v1.0.0, the version the paper cites, is
+[10.5281/zenodo.24244237](https://doi.org/10.5281/zenodo.24244237)).
+[`CITATION.cff`](CITATION.cff) has both; GitHub's "Cite this repository" shows the paper.
+
+```bibtex
+@misc{Souza2026moments,
+  author        = {Souza, D.},
+  title         = {Spectral Moments of the Projected Hubbard Configuration Graph:
+                   Connectivity, Exchange, and Virtual Doublons},
+  year          = {2026},
+  eprint        = {2611.19929},
+  archivePrefix = {arXiv},
+  primaryClass  = {cond-mat.str-el},
+  doi           = {10.48550/arXiv.2611.19929}
+}
+
+@software{Souza2026code,
+  author    = {Souza, D.},
+  title     = {Hubbard spectral moments: code, checks and Lean formalization for
+               `Spectral Moments of the Projected Hubbard Configuration Graph'},
+  publisher = {Zenodo},
+  year      = {2026},
+  doi       = {10.5281/zenodo.24244236},
+  url       = {https://github.com/zhineos/hubbard-spectral-moments}
+}
+```
+
+Code and Lean formalization: Apache-2.0 ([`LICENSE`](LICENSE)).
 
 ## Reference
 

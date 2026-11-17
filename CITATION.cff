@@ -1,10 +1,10 @@
-# Citation metadata. Zenodo reads this file from the tagged commit of each GitHub release.
+# Citation metadata. Zenodo reads this file from the tagged commit of each GitHub release, and
+# takes from it only the title, authors, abstract, keywords, license and message.
 # At the release: date-released must be the day of the GitHub release; version must match its tag.
-# After the arXiv posting: add the preprint under preferred-citation (next release).
-# Not listed on purpose: the commit (a file cannot contain its own commit; the tag pins it)
-# and the DOI (Zenodo assigns it when the release is archived; add it in the next release).
+# doi is the concept DOI (all versions); each release also has its own DOI on its Zenodo record.
+# Not listed on purpose: the commit (a file cannot contain its own commit; the tag pins it).
 cff-version: 1.2.0
-message: "If you use this code, the checks or the Lean formalization, please cite them as below."
+message: "If you use this code, the checks or the Lean formalization, please cite the paper below and this software through its Zenodo DOI, 10.5281/zenodo.24244236."
 type: software
 title: "Hubbard spectral moments: code, checks and Lean formalization for 'Spectral Moments of the Projected Hubbard Configuration Graph'"
 abstract: >-
@@ -21,9 +21,10 @@ authors:
     orcid: "https://orcid.org/0000-0003-2671-9227"
     # affiliation: "..."
 repository-code: "https://github.com/zhineos/hubbard-spectral-moments"
+doi: "10.5281/zenodo.24244236"
 license: Apache-2.0
-version: "1.0.0"
-date-released: "2026-11-15"
+version: "1.0.1"
+date-released: "2026-11-17"
 keywords:
   - Hubbard model
   - spectral moments
@@ -43,3 +44,15 @@ references:
     start: 205437
     year: 2010
     doi: "10.1103/PhysRevB.82.205437"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Souza
+      given-names: D.
+      orcid: "https://orcid.org/0000-0003-2671-9227"
+  title: "Spectral Moments of the Projected Hubbard Configuration Graph: Connectivity, Exchange, and Virtual Doublons"
+  journal: "arXiv preprint arXiv:2611.19929"
+  year: 2026
+  month: 11
+  doi: "10.48550/arXiv.2611.19929"
+  url: "https://arxiv.org/abs/2611.19929"

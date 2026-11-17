@@ -46,6 +46,22 @@ are kept: `evidence/2026-11-13-lean-linux` failed because of faulty memory on th
 (single bits flipped in cached Mathlib files, while the files on disk were intact); after the
 memory was replaced, `evidence/2026-11-14-lean-linux` passed all ten steps from the same commit.
 
+The commits named in the records (`git_commit` in `environment.json`) belong to the
+development history before the first release, which is not public, so they cannot be checked
+out from this repository. For each record, the author compared the files it ran (the script
+and the repository modules it imports; for the Lean runs, `lean/` and
+`checks/lean_linux_run.py`) with the same files in release v1.0.0:
+
+| record | the code it ran, against v1.0.0 |
+|---|---|
+| `2026-11-13-finite-U`, `2026-11-14-alpha-c2`, `2026-11-14-lean-linux-2` | identical (for `lean-linux-2`, every released file of `lean/` except `lean/README.md`, edited after the run) |
+| `2026-11-13-n6-linearity` | identical, except that two functions this run does not use (`four_cycles`, `small_graphs`) were added to `checks/hinf_local.py` afterwards |
+| `2026-11-14-fig-sectors` | identical code; only the docstring of `fig_sectors.py` was edited afterwards |
+| `2026-11-13-alpha-c2` | an earlier `checks/slow_alpha_c2.py`, without the $L=6$ case; superseded by `2026-11-14-alpha-c2` |
+| `2026-11-13-lean-linux`, `2026-11-14-lean-linux` | differs in a section number inside a comment of `lean/HubbardMoments/Spec.lean` and in how `checks/lean_linux_run.py` names a second record of the same day; superseded by `2026-11-14-lean-linux-2` |
+| `2026-11-12-finite-U`, `2026-11-12-n6-linearity` | scripts not yet committed (the tree was not clean); superseded by the 2026-11-13 records |
+| `2026-11-12-n3-bound-states` | a script not yet committed (the tree was not clean); this is the only record of `sec:n3test#unbound` |
+
 ## Reviews
 
 Claims were reviewed in rounds, each on a frozen snapshot of the paper and sources identified by
