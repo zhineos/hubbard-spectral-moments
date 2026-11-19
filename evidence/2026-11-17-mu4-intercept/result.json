@@ -1,0 +1,55 @@
+{
+  "claims": [
+    "eq:Aclosed#numeric",
+    "app:mu4walks#hcb-lemma"
+  ],
+  "exhaustive": {
+    "1": {
+      "isomorphism_classes": 1,
+      "comparisons": 6
+    },
+    "2": {
+      "isomorphism_classes": 2,
+      "comparisons": 22
+    },
+    "3": {
+      "isomorphism_classes": 4,
+      "comparisons": 64
+    },
+    "4": {
+      "isomorphism_classes": 11,
+      "comparisons": 253
+    },
+    "5": {
+      "isomorphism_classes": 34,
+      "comparisons": 1020
+    },
+    "6": {
+      "isomorphism_classes": 156,
+      "comparisons": 6084
+    }
+  },
+  "random": {
+    "7": {
+      "graphs": 100,
+      "comparisons": 4800
+    },
+    "8": {
+      "graphs": 100,
+      "comparisons": 5900
+    },
+    "9": {
+      "graphs": 100,
+      "comparisons": 7000
+    },
+    "10": {
+      "graphs": 100,
+      "comparisons": 8300
+    }
+  },
+  "failures": [],
+  "total_comparisons": 33449,
+  "all_exact": true,
+  "wall_time_s": 1677.5,
+  "peak_rss_mb": 38.0
+}

@@ -23,10 +23,11 @@ The audit must print, for every theorem, exactly
 
 ### Comparator and the final run
 
-`Challenge.lean` restates the 46 theorems of `HubbardMoments/Main.lean` with `sorry`, under
-the same names; it imports only `HubbardMoments.Spec` (hence `Defs` and Mathlib), so that
+`Challenge.lean` restates the 51 theorems of `HubbardMoments/Main.lean` with `sorry`, under
+the same names (`python checks/make_challenge.py` regenerates it from `Main.lean`; with
+`--check` it only confirms that the file is up to date); it imports only `HubbardMoments.Spec` (hence `Defs` and Mathlib), so that
 import closure is the trusted statement. `comparator.json` names the challenge, the
-solution `HubbardMoments.Main`, the 46 theorems and the permitted axioms. Then
+solution `HubbardMoments.Main`, the 51 theorems and the permitted axioms. Then
 
 ```sh
 lake comparator --paranoid      # each proof proves exactly the challenge statement
@@ -35,10 +36,12 @@ lake check                      # the whole default build replays through the ke
 
 `lake comparator --paranoid` runs Lean's kernel and the five external checkers bundled with
 the toolchain (`leanchecker-paranoid`, `lean4lean`, `nanoda`, `con-leche`, `con-ron`) on an
-export of the 46 theorems and everything they depend on (about 20 000 declarations, under two
-minutes). `lake check` exports the whole build, which imports all of Mathlib: about 6 GB,
-written to `$TMPDIR`, and 36 minutes with Lean's kernel on a 16-core machine with 16 GB of
-memory. Where `/tmp` is held in memory, point `TMPDIR` at a disk. Both build and export
+export of the 51 theorems and everything they depend on (5 minutes in the run of
+`evidence/2026-11-18-lean-linux`; under two minutes for the 46 theorems of v1.0.0). `lake check`
+exports the whole build, which imports all of Mathlib: about 6 GB, written to `$TMPDIR`, and
+36 minutes with Lean's kernel (on a 16-core machine with 16 GB of memory, and again on 32 cores
+in that run). Where `/tmp` is held in memory, point `TMPDIR` at a
+disk. Both build and export
 inside a `bwrap` sandbox, which exists only on Linux. Exit code 0 means
 accepted, 1 rejected, 2 could not start. `Challenge` and `NegativeControls` are separate
 libraries outside the default target, so `lake build` and `lake check` never see their
@@ -52,7 +55,7 @@ is `python checks/lean_linux_run.py --record` from the repository root, which wr
 
 | file | contents |
 |---|---|
-| `HubbardMoments/Defs.lean` | every object the claims refer to: sectors, the torus, hops, configurations, projected hopping operators, the second moment |
+| `HubbardMoments/Defs.lean` | every object the claims refer to: sectors, the torus, hops, configurations, projected hopping operators, the second and fourth moments, the graph counts `W`, `D`, `C₄`, hard-core bosons, the closed forms `A` and `α` |
 | `HubbardMoments/Spec.lean` | the claims, as propositions; with `Defs`, all a reader needs to know what is proved |
 | `HubbardMoments/Main.lean` | one headline theorem proving each proposition of `Spec` |
 | `HubbardMoments/Combinatorics/Subsets.lean` | counting subsets with a prescribed trace |
@@ -68,8 +71,17 @@ is `python checks/lean_linux_run.py --record` from the repository root, which wr
 | `HubbardMoments/Fermions.lean` | fermion creation and annihilation operators; anticommutation relations; the sign rule |
 | `HubbardMoments/Hubbard.lean` | the hopping term `H_t` and `H∞ = P₀H_tP₀` built from them |
 | `HubbardMoments/Weighted.lean` | the second-moment theorem for arbitrary Hermitian amplitudes `t_ij` |
+| `HubbardMoments/FourthMoment/GraphCounts.lean` | `D = C(m, 2) − W`; `C₄` is exact (the closed-sequence count is a multiple of 8); `m`, `W`, `C₄` on the torus |
+| `HubbardMoments/FourthMoment/HardCoreBosons.lean` | the hard-core-boson fourth moment: two-hop paths, their three types, and the averages over occupations |
+| `HubbardMoments/FourthMoment/FermionSigns.lean` | signs of the two-hop paths of `H∞`, from the fermion operators |
+| `HubbardMoments/FourthMoment/FermionPaths.lean` | `Tr(H_B⁴)` as a sum over two-hop paths with signs |
+| `HubbardMoments/FourthMoment/FermionValues.lean` | the value of `(H²)` at each type of path end |
+| `HubbardMoments/FourthMoment/FermionDelta.lean` | per configuration: the fermion value is the boson value plus a local weight per 4-cycle |
+| `HubbardMoments/FourthMoment/SpinCounts.lean` | spin-½ configurations counted by local pattern |
+| `HubbardMoments/FourthMoment/FermionMoment.lean` | the exact fourth moment `μ₄ = A + α P_same` |
+| `HubbardMoments/FourthMoment/TorusMoment.lean` | its square-lattice form and the `L = 4` table |
 | `AxiomAudit.lean` | `#print axioms` for the headline theorems |
-| `Challenge.lean` | the 46 statements with `sorry`: the reference for `lake comparator` |
+| `Challenge.lean` | the 51 statements with `sorry`: the reference for `lake comparator` |
 | `comparator.json` | challenge, solution, theorem names and permitted axioms |
 | `NegativeControls/` | four bad proofs and their configurations, which must be rejected |
 
@@ -107,7 +119,7 @@ is `python checks/lean_linux_run.py --record` from the repository root, which wr
 | for one species the `U = 0` and `U = ∞` values of `μ₂` coincide | `freeAndProjectedSecondMomentsAgree` | as above |
 | the finite-population table at `L = 4`: `112/15, 2176/15; 52/5, 9976/35; 64/5, 197632/455` | `finitePopulationTable` | as above |
 | a closed walk of `h` hard-core hops, on any graph, moves no particle or fewer than `h` | `closedWalkFewMoved` | — |
-| **four-hop closed walks** induce only the identity, a transposition or a 3-cycle: no 4-cycle, no double transposition (§6, App. C) | `fourHopPermutations` | fermion signs and spin conditions; the form `μ₄ = A + α P_same` |
+| **four-hop closed walks** induce only the identity, a transposition or a 3-cycle: no 4-cycle, no double transposition (§6, App. C) | `fourHopPermutations` | — (the fermion signs and the form `μ₄ = A + α P_same` are `fourthMomentHubbard` below) |
 | both occur on every torus, `L ≥ 3`: ring exchange, and the plaquette 3-cycle | `fourHopExchangesOccur` | — |
 | `P₃ = C(N↑,3) + C(N↓,3) = C(n,3) − (n−2)/2·(C(n,2) − P_same)`, affine in `P_same` (§6) | `threeCycleCountAffine` | — |
 | fermion operators on any finite set of orbitals, any ordering: `(c_o)† = c†_o`, `{c,c} = {c†,c†} = 0`, `{c_o, c†_o'} = δ` | `canonicalAnticommutation` | — |
@@ -117,6 +129,11 @@ is `python checks/lean_linux_run.py --record` from the repository root, which wr
 | hence the exact second-moment theorem for `H∞` itself; square-lattice form | `secondMomentHubbard`, `secondMomentHubbardTorus` | — |
 | hence no `1/U` term for `H_t` itself on triangle-free graphs | `schriefferWolffHubbard` | the expansion `H_eff = T₀ − V/U + O(1/U²)` |
 | **weighted form** `μ₂ = n(N−n)/(N(N−1)) Σ_{i≠j} \|t_ij\|²` for `H∞` with any Hermitian amplitudes `t_ji = t_ij*` (abstract, §5.2) | `secondMomentWeightedTheorem`, `secondMomentHubbardWeighted` | — |
+| the torus counts: `m = 2N`, `W = 6N` (`L ≥ 3`); `C₄ = N` (`L = 3`, `L ≥ 5`), `C₄ = 24` (`L = 4`) | `torusGraphCounts` | — |
+| **hard-core-boson fourth moment** `μ₄^HCB = (2m + 4W + 8C₄) p₁₁ + (24D + 16C₄) p₂₂`, any finite simple graph, `N ≥ 4` (eq:muHCB, App. C) | `hardCoreBosonFourthMoment` | — |
+| **exact fourth moment** `μ₄(∞) = t⁴(A(N,n) + α(N,n) P_same)`, `A = (2m + 4W + 8C₄) p₁₁ + (24D − 16C₄) p₂₂ − 12C₄ p₃₁`, `α = −8C₄(N−n)(8N−11n−2)/(N(N−1)(N−2)(N−3))`, for `H∞` built from fermion operators, any finite simple graph, `N ≥ 4`, any `n ≤ N`, any ordering of the orbitals (§6, App. C) | `fourthMomentHubbard` | Peierls phases (the paper's eq:mu4flux, in which every `C₄` term acquires `∑_C cos Θ_C`, is not formalized); more than two spin species; bond-dependent amplitudes |
+| its torus form `A = 36N p₁₁ + (48N² − 184N) p₂₂ − 12N p₃₁`, `α = −8(N−n)(8N−11n−2)/((N−1)(N−2)(N−3))` (`L = 3`, `L ≥ 5`) | `fourthMomentHubbardTorus` | as above |
+| the `μ₄` column of Table `tab:mu4exact` at `L = 4`: `2176/15, 2272/15, 9976/35, 10348/35, 197632/455, 203536/455, 15808/35` | `fourthMomentTableL4` | the `μ₂` column (it follows from `secondMomentHubbardTorus`) |
 
 The second-moment theorems hold for every operator with the three properties of
 `IsProjectedHopping` (Hermitian; nonzero matrix elements only for one hop to an empty

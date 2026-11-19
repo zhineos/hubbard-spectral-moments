@@ -28,10 +28,10 @@ Every claim carries one tier, and no claim is stated more strongly than its evid
 | check | establishes | does not establish |
 |---|---|---|
 | `lake build` (0 warnings) and `lake env lean AxiomAudit.lean` | every headline theorem compiles and depends only on `propext`, `Classical.choice` and `Quot.sound`: no `sorry`, no trusted compiled code | that the Lean statement says what the paper says; that is checked by the reviewers and recorded in `correspondence.tsv` |
-| `lake comparator --paranoid` | each of the 46 proofs proves exactly the statement of `Challenge.lean`, with only the permitted axioms, accepted by six independent kernels (Lean's default and paranoid checkers, lean4lean, nanoda, con-leche, con-ron) | that `Challenge.lean` matches the paper; it is generated from `Main.lean`, so it guards the proofs, not the statements |
+| `lake comparator --paranoid` | each of the 51 proofs proves exactly the statement of `Challenge.lean`, with only the permitted axioms, accepted by six independent kernels (Lean's default and paranoid checkers, lean4lean, nanoda, con-leche, con-ron) | that `Challenge.lean` matches the paper; it is generated from `Main.lean`, so it guards the proofs, not the statements |
 | four negative controls | the comparator rejects a weakened statement, an added axiom, a changed definition and an unproved step | that every possible error would be caught |
 | `lake check` | the whole default build, with all of Mathlib, replays through Lean's kernel from an export | anything about the statements |
-| `checks/run_checks.py` (176 checks, about 2 minutes) | every number of the paper that has a check equals an independent computation, and each closed form equals the exact values it predicts at the sizes computed | a statement for sizes, graphs or fillings that were not computed; agreement of two codes written by the same authors is not independent proof |
+| `checks/run_checks.py` (215 checks, about 2 minutes) | every number of the paper that has a check equals an independent computation, and each closed form equals the exact values it predicts at the sizes computed | a statement for sizes, graphs or fillings that were not computed; agreement of two codes written by the same authors is not independent proof |
 | `checks/frozen_check.py` (run inside `run_checks.py`) | the frozen claims in the register are exactly the freeze record plus the approved changes of the drift log; a tampered line is caught | that the claims are true |
 | slow runs (`checks/slow_*.py`, `evidence/`) | the larger computations behind specific numbers, recorded with command, versions, commit, time, memory and checksums | anything beyond those numbers |
 | figure records (e.g. `evidence/2026-11-14-fig-sectors`) | which code and inputs produced a figure, with its checksum | that the figure is the only possible reading of the data |
@@ -45,6 +45,12 @@ from a tree with uncommitted changes is marked as such and is not final evidence
 are kept: `evidence/2026-11-13-lean-linux` failed because of faulty memory on the Linux machine
 (single bits flipped in cached Mathlib files, while the files on disk were intact); after the
 memory was replaced, `evidence/2026-11-14-lean-linux` passed all ten steps from the same commit.
+For v1.1.0, `evidence/2026-11-18-lean-linux` passed all ten steps on the 51 theorems, from a
+clean tree whose `lean/` is that of the release. From the same clean commit,
+`evidence/2026-11-18-mu4-intercept` and `evidence/2026-11-18-n3-bound-states` reran the two
+checks whose earlier records came from uncommitted trees (`2026-11-17-mu4-intercept` and
+`2026-11-12-n3-bound-states`): the results are identical, except the last digits of two
+floating-point excursions of order $10^{-15}$ in the n = 3 first-order model.
 
 The commits named in the records (`git_commit` in `environment.json`) belong to the
 development history before the first release, which is not public, so they cannot be checked
@@ -60,7 +66,7 @@ and the repository modules it imports; for the Lean runs, `lean/` and
 | `2026-11-13-alpha-c2` | an earlier `checks/slow_alpha_c2.py`, without the $L=6$ case; superseded by `2026-11-14-alpha-c2` |
 | `2026-11-13-lean-linux`, `2026-11-14-lean-linux` | differs in a section number inside a comment of `lean/HubbardMoments/Spec.lean` and in how `checks/lean_linux_run.py` names a second record of the same day; superseded by `2026-11-14-lean-linux-2` |
 | `2026-11-12-finite-U`, `2026-11-12-n6-linearity` | scripts not yet committed (the tree was not clean); superseded by the 2026-11-13 records |
-| `2026-11-12-n3-bound-states` | a script not yet committed (the tree was not clean); this is the only record of `sec:n3test#unbound` |
+| `2026-11-12-n3-bound-states` | a script not yet committed (the tree was not clean); superseded by `2026-11-18-n3-bound-states` |
 
 ## Reviews
 

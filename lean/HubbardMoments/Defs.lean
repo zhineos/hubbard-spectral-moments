@@ -25,6 +25,11 @@ claimed. The proofs live in the other files.
 * `FockState V σ`, `siteOcc`, `IsHop`, `IsHoppingOperator G H`, `virtualOp Q H`: Fock basis
   states (double occupancy allowed), site occupations, one hop, hopping operators, and the
   operator `V = T₁† T₁` of the Schrieffer–Wolff expansion.
+* `wedgeCount G`, `disjointEdgePairs G`, `fourCycleCount G`: the graph counts `W`, `D`, `C₄`
+  of the fourth moment; `occProb N n a b`: the occupation probabilities `p_ab`;
+  `hardCoreHopping G`: hard-core bosons (the token-graph adjacency matrix);
+  `fourthMoment B H`: the fourth moment `Tr(H_B⁴)/|B|`; `fourthMomentIntercept G n`,
+  `exchangeSlope G n`: the closed forms `A(N, n)` and `α(N, n)`.
 -/
 
 @[expose] public section
@@ -288,5 +293,79 @@ def IsParticleHop {P V : Type*} [DecidableEq P] (G : SimpleGraph V) (pos pos' : 
 `ε(q) = -2t (cos q₁ + cos q₂)` at the `L²` momenta `q = 2π (m₁, m₂)/L`. -/
 noncomputable def torusBand (L : ℕ) (t : ℝ) : Fin L × Fin L → ℝ := fun m =>
   -2 * t * (Real.cos (2 * Real.pi * (m.1 : ℕ) / L) + Real.cos (2 * Real.pi * (m.2 : ℕ) / L))
+
+section GraphCounts
+
+variable {V : Type*} [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj]
+
+/-- `W`: the number of unordered pairs of distinct edges sharing a vertex, `∑_v C(d_v, 2)`
+(in a simple graph two distinct edges share at most one vertex). -/
+def wedgeCount : ℕ := ∑ v, (G.degree v).choose 2
+
+/-- `D`: the number of unordered pairs of vertex-disjoint edges. Each such pair `{e, f}` is
+counted twice among the ordered pairs `(e, f)`. (In a simple graph `D = C(m, 2) - W`, the
+paper's definition: `disjointEdgePairs_eq` in `HubbardMoments/FourthMoment/GraphCounts.lean`.) -/
+def disjointEdgePairs : ℕ :=
+  ((G.edgeFinset ×ˢ G.edgeFinset).filter fun ef => ∀ v ∈ ef.1, v ∉ ef.2).card / 2
+
+/-- `C₄`: the number of 4-cycles of `G` (as subgraphs). A 4-cycle with vertices `a, b, c, d`
+in cyclic order is counted by the 8 sequences `(a, b, c, d)` given by its starting vertex
+and its direction: the sequences of four vertices with `a ~ b ~ c ~ d ~ a`, `a ≠ c` and
+`b ≠ d` (adjacent vertices are distinct, so all four are). -/
+def fourCycleCount : ℕ :=
+  (univ.filter fun x : V × V × V × V =>
+    G.Adj x.1 x.2.1 ∧ G.Adj x.2.1 x.2.2.1 ∧ G.Adj x.2.2.1 x.2.2.2 ∧ G.Adj x.2.2.2 x.1 ∧
+      x.1 ≠ x.2.2.1 ∧ x.2.1 ≠ x.2.2.2).card / 8
+
+end GraphCounts
+
+/-- `p_ab = (n)_a (N - n)_b / (N)_{a+b}` (falling factorials): when `n` of `N` sites are
+occupied, uniformly at random, the probability that `a` given sites are all occupied and `b`
+other given sites are all empty. -/
+noncomputable def occProb (N n a b : ℕ) : ℝ :=
+  (n.descFactorial a * (N - n).descFactorial b : ℝ) / N.descFactorial (a + b)
+
+section HardCoreBosons
+
+variable {V : Type*} [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj]
+
+/-- **Hard-core bosons** hopping on `G` with unit amplitude, on the configurations `S` (the
+sets of occupied sites): the matrix element from `S` to `S'` is `1` if `S'` is obtained from
+`S` by moving one particle from an occupied site to an adjacent empty one, and `0` otherwise.
+On the `n`-subsets it is the adjacency matrix of the `n`-token graph of `G` (the spin-½ XX
+model at fixed magnetization). -/
+noncomputable def hardCoreHopping : Matrix (Finset V) (Finset V) ℂ := fun S' S =>
+  if ∃ p ∈ hops G S, S' = insert p.2 (S.erase p.1) then 1 else 0
+
+end HardCoreBosons
+
+/-- The fourth moment `Tr(H_B⁴)/|B|` of `H` on a finite basis `B`, where `H_B` is the block
+of `H` on `B`. When `Tr H_B = 0`, as for every projected hopping operator
+(`ProjectedHoppingDiagonalZero`), it is the fourth central moment of the eigenvalue
+distribution of `H_B`: the `μ₄` of the paper. -/
+noncomputable def fourthMoment {ι : Type*} (B : Finset ι) (H : Matrix ι ι ℂ) : ℂ :=
+  (∑ c ∈ B, ∑ b₁ ∈ B, ∑ b₂ ∈ B, ∑ b₃ ∈ B, H c b₁ * H b₁ b₂ * H b₂ b₃ * H b₃ c) / B.card
+
+section ClosedForms
+
+variable {V : Type*} [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj]
+
+/-- The intercept `A(N, n) = (2m + 4W + 8C₄) p₁₁ + (24D - 16C₄) p₂₂ - 12 C₄ p₃₁`
+(eq:Aclosed), `N` the number of sites, in units of `t⁴`. -/
+noncomputable def fourthMomentIntercept (n : ℕ) : ℝ :=
+  ((2 * G.edgeFinset.card + 4 * wedgeCount G + 8 * fourCycleCount G : ℕ) : ℝ) *
+      occProb (Fintype.card V) n 1 1 +
+    (24 * (disjointEdgePairs G : ℝ) - 16 * fourCycleCount G) * occProb (Fintype.card V) n 2 2 -
+      12 * (fourCycleCount G : ℝ) * occProb (Fintype.card V) n 3 1
+
+/-- The exchange coefficient `α(N, n) = -8 C₄ (N - n)(8N - 11n - 2)/(N(N - 1)(N - 2)(N - 3))`
+(eq:alphaN), in units of `t⁴`. -/
+noncomputable def exchangeSlope (n : ℕ) : ℝ :=
+  -(8 * (fourCycleCount G : ℝ) * ((Fintype.card V : ℝ) - n) *
+      (8 * (Fintype.card V : ℝ) - 11 * n - 2)) /
+    ((Fintype.card V : ℝ) * ((Fintype.card V : ℝ) - 1) * ((Fintype.card V : ℝ) - 2) *
+      ((Fintype.card V : ℝ) - 3))
+
+end ClosedForms
 
 end HubbardMoments

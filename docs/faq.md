@@ -39,9 +39,12 @@ are numerical findings, labelled as such.
 
 **What exactly is machine-checked?**
 The statements listed in the paper's Appendix F and in [`../lean/README.md`](../lean/README.md),
-including what each does not cover. Not formalized: the Schrieffer–Wolff expansion itself, the
-spin-averaging step and hence the linearity of $\mu_4$, the coefficient $\alpha(N,n)$, and the
-identification of free-fermion energies with sums of band energies. No numerical result
+including what each does not cover. Since v1.1.0 this includes the whole fourth moment at
+$U=\infty$ without Peierls phases: the hard-core-boson moment and $\mu_4=A+\alpha P_{\rm same}$
+for $H_\infty$ built from fermion operators on any finite simple graph. Not formalized: the
+Schrieffer–Wolff expansion itself, the fourth moment under Peierls phases (derived in the paper
+and checked numerically), and the identification of free-fermion energies with sums of band
+energies. No numerical result
 depends on the formalization.
 
 **How reliable are the reviews?**

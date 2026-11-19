@@ -59,11 +59,17 @@ can be checked by the machine.
 | `SchriefferWolffHubbard` | the cross term vanishes for `H_t` itself on triangle-free graphs (§7.2) |
 | `SecondMomentWeightedTheorem` | `μ₂ = n(N - n)/(N(N - 1)) ∑_{i≠j} w_ij²` for bond-dependent moduli |
 | `SecondMomentHubbardWeighted` | `μ₂ = n(N - n)/(N(N - 1)) ∑_{i≠j} \|t_ij\|²` for `H∞` with any Hermitian amplitudes (abstract, §5.2) |
+| `TorusGraphCounts` | the counts `m = 2N`, `W = 6N`, `C₄ = N` (`L = 3`, `L ≥ 5`) and `C₄ = 24` (`L = 4`) |
+| `HardCoreBosonFourthMoment` | `μ₄^HCB = (2m + 4W + 8C₄) p₁₁ + (24D + 16C₄) p₂₂` (eq:muHCB, App. C) |
+| `FourthMomentHubbard` | the exact fourth moment: `μ₄(∞) = A(N, n) + α(N, n) P_same` with `A` and `α` in closed form (§6, eq:Aclosed, eq:alphaN) |
+| `FourthMomentHubbardTorus` | its square-lattice form (`L = 3`, `L ≥ 5`) |
+| `FourthMomentTableL4` | the seven values of Table `tab:mu4exact` (`L = 4`), through the closed form |
 
 ## What these claims do not include
 
-* Any statement about higher moments, finite `U` or flux beyond what `IsProjectedHopping`
-  allows (it allows any Peierls phases, since only moduli enter).
+* Any statement about moments beyond the fourth, or about finite `U`. For the second
+  moment, flux enters only as `IsProjectedHopping` allows (any Peierls phases, since only
+  moduli enter).
 * The second-order formula of degenerate perturbation theory (Schrieffer–Wolff) itself. The
   doublon claims evaluate its terms (`doublonSecondOrder`); the cross-term claims are about
   the operators `T₀ = P₀HP₀` and `V = T₁†T₁` that it produces.
@@ -76,9 +82,20 @@ can be checked by the machine.
   single-particle energies (Slater determinants), and that `torusBand` is the spectrum of
   the hopping matrix of `torus L` (plane waves). Both are standard; they are what make
   `sampleMoment (torusBand L t)` the `U = 0` moments of the paper.
-* The fermionic signs and spin conditions of the four-hop walks, and the resulting form
-  `μ₄(∞) = A(N, n) + α(N, n) P_same`. The walk claims are about labelled hard-core
-  particles and the permutations they can realize.
+* For the fourth moment (`FourthMomentHubbard` and its torus forms): Peierls phases (the
+  fourth-moment claims take `A ≡ 0`; the paper's eq:mu4flux for arbitrary phases, in which
+  every `C₄` term acquires `∑_C cos Θ_C`, is not formalized), more than two spin species (the
+  linear law in `P_same` uses that for two species `P₃ = C(N↑, 3) + C(N↓, 3)` is fixed by
+  `P_same` at fixed `n`, `ThreeCycleCountAffine`), graphs with fewer than four sites (the
+  paper's eq:muHCB also covers them; `HardCoreBosonFourthMoment` assumes `N ≥ 4`), and
+  bond-dependent amplitudes (the hopping modulus is the same `t` on every bond).
+* Steps and consequences of the fourth-moment derivation that are not separate statements:
+  eq:AfromHCB (`A = μ₄^HCB - T₂ - (3/2) T₃`), eq:mu4decomp and eq:alphaT, the walk counts of
+  eq:alphaapprox (`T₂ = 32 C₄ p₂₂`, `T₃ = 8 C₄ p₃₁`, which assign the two terms of `α` to
+  transpositions and 3-cycles), the `n = 1` value `Tr A_G⁴/N`, the generating-function form
+  of eq:muHCB, and the `L = 4` intercepts and slopes quoted in §6 (they follow from
+  `FourthMomentTableL4` and the closed forms by arithmetic). The `μ₂` column of
+  Table tab:mu4exact follows from `SecondMomentHubbardTorus`.
 * That the paper's cross term, over a full sector at `L = 3`, is nonzero. That is a
   numerical result. `CrossTermNeedsTriangleFree` shows only that the general statement
   fails at `L = 3`, with a two-state `B` and a hand-built hopping operator.
@@ -495,5 +512,70 @@ def SecondMomentHubbardWeighted : Prop :=
         (∑ s, n s : ℕ) * ((Fintype.card V : ℂ) - (∑ s, n s : ℕ)) /
             ((Fintype.card V : ℂ) * ((Fintype.card V : ℂ) - 1)) *
           ∑ i, ∑ j ∈ Finset.univ.erase i, ((‖tt i j‖ : ℝ) : ℂ) ^ 2
+
+/-- **Graph counts of the torus.** The `L × L` torus has `m = 2L²` edges and
+`W = 6L²` pairs of edges sharing a vertex for `L ≥ 3`; it has `C₄ = L²` four-cycles (the
+plaquettes) for `L = 3` and `L ≥ 5`, and `C₄ = 24` for `L = 4` (the 16 plaquettes and the 8
+rows and columns, which wind around it in four steps). -/
+def TorusGraphCounts : Prop :=
+  (∀ L : ℕ, 3 ≤ L →
+    (torus L).edgeFinset.card = 2 * (L * L) ∧ wedgeCount (torus L) = 6 * (L * L)) ∧
+  (∀ L : ℕ, (L = 3 ∨ 5 ≤ L) → fourCycleCount (torus L) = L * L) ∧
+  fourCycleCount (torus 4) = 24
+
+/-- **The hard-core-boson fourth moment** (eq:muHCB, `app:mu4walks#hcb-lemma`). On any finite
+simple graph with `N ≥ 4` vertices, `m` edges, `W` pairs of edges sharing a vertex, `D` pairs
+of vertex-disjoint edges and `C₄` four-cycles, `n ≤ N` hard-core bosons with unit hopping
+have `μ₄^HCB = (2m + 4W + 8C₄) p₁₁ + (24D + 16C₄) p₂₂`. -/
+def HardCoreBosonFourthMoment : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj] (n : ℕ),
+    4 ≤ Fintype.card V → n ≤ Fintype.card V →
+      fourthMoment (powersetCard n (univ : Finset V)) (hardCoreHopping G) =
+        ((((2 * G.edgeFinset.card + 4 * wedgeCount G + 8 * fourCycleCount G : ℕ) : ℝ) *
+              occProb (Fintype.card V) n 1 1 +
+            ((24 * disjointEdgePairs G + 16 * fourCycleCount G : ℕ) : ℝ) *
+              occProb (Fintype.card V) n 2 2 : ℝ) : ℂ)
+
+/-- **The exact fourth moment of `H∞`** (the Proposition of §6; eq:Aclosed, eq:alphaN). On
+any finite simple graph with `N ≥ 4` sites, for `H∞ = P₀ H_t P₀` built from fermion operators
+with uniform hopping `t`, no Peierls phases and any ordering of the orbitals, and `n↑` up and
+`n↓` down particles, any `n = n↑ + n↓ ≤ N`:
+`μ₄(∞) = t⁴ (A(N, n) + α(N, n) P_same)`, `P_same = C(n↑, 2) + C(n↓, 2)`. For `n ≤ 1`,
+`P_same = 0` and `μ₄ = t⁴ A`. -/
+def FourthMomentHubbard : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj] (t : ℝ)
+    (ord : V × Bool ↪ ℕ) (n : Bool → ℕ),
+    4 ≤ Fintype.card V → n true + n false ≤ Fintype.card V →
+      fourthMoment (basis V n) (projectedHubbard G t (fun _ _ => 0) ord) =
+        ((t ^ 4 * (fourthMomentIntercept G (n true + n false) +
+            exchangeSlope G (n true + n false) *
+              ((n true).choose 2 + (n false).choose 2 : ℕ)) : ℝ) : ℂ)
+
+/-- **The exact fourth moment on the `L × L` torus**, `L = 3` or `L ≥ 5` (`N = L²`), any `n ≤ N`:
+`μ₄(∞) = t⁴ (36N p₁₁ + (48N² - 184N) p₂₂ - 12N p₃₁ - 8(N - n)(8N - 11n - 2)/((N - 1)(N - 2)(N - 3)) · P_same)`. -/
+def FourthMomentHubbardTorus : Prop :=
+  ∀ (L : ℕ) (t : ℝ) (ord : (Fin L × Fin L) × Bool ↪ ℕ) (n : Bool → ℕ),
+    (L = 3 ∨ 5 ≤ L) → n true + n false ≤ L * L →
+      fourthMoment (basis (Fin L × Fin L) n) (projectedHubbard (torus L) t (fun _ _ => 0) ord) =
+        ((t ^ 4 * (36 * (L * L : ℕ) * occProb (L * L) (n true + n false) 1 1 +
+            (48 * ((L * L : ℕ) : ℝ) ^ 2 - 184 * (L * L : ℕ)) *
+              occProb (L * L) (n true + n false) 2 2 -
+            12 * (L * L : ℕ) * occProb (L * L) (n true + n false) 3 1 -
+            8 * (((L * L : ℕ) : ℝ) - (n true + n false : ℕ)) *
+                (8 * ((L * L : ℕ) : ℝ) - 11 * (n true + n false : ℕ) - 2) /
+              ((((L * L : ℕ) : ℝ) - 1) * (((L * L : ℕ) : ℝ) - 2) * (((L * L : ℕ) : ℝ) - 3)) *
+              ((n true).choose 2 + (n false).choose 2 : ℕ)) : ℝ) : ℂ)
+
+/-- **Table `tab:mu4exact`** (`L = 4`, units of `t⁴`): `μ₄(∞)` for the compositions
+`(2,0), (1,1), (3,0), (2,1), (4,0), (3,1), (2,2)` is `2176/15, 2272/15, 9976/35, 10348/35,
+197632/455, 203536/455, 15808/35`. -/
+def FourthMomentTableL4 : Prop :=
+  ∀ (t : ℝ) (ord : (Fin 4 × Fin 4) × Bool ↪ ℕ),
+    let μ₄ := fun a b : ℕ => fourthMoment (basis (Fin 4 × Fin 4) (fun s => if s then a else b))
+      (projectedHubbard (torus 4) t (fun _ _ => 0) ord)
+    μ₄ 2 0 = ((t ^ 4 * (2176 / 15) : ℝ) : ℂ) ∧ μ₄ 1 1 = ((t ^ 4 * (2272 / 15) : ℝ) : ℂ) ∧
+    μ₄ 3 0 = ((t ^ 4 * (9976 / 35) : ℝ) : ℂ) ∧ μ₄ 2 1 = ((t ^ 4 * (10348 / 35) : ℝ) : ℂ) ∧
+    μ₄ 4 0 = ((t ^ 4 * (197632 / 455) : ℝ) : ℂ) ∧ μ₄ 3 1 = ((t ^ 4 * (203536 / 455) : ℝ) : ℂ) ∧
+    μ₄ 2 2 = ((t ^ 4 * (15808 / 35) : ℝ) : ℂ)
 
 end HubbardMoments.Spec

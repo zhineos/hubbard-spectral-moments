@@ -17,7 +17,7 @@ reproduce.
   </picture>
 </p>
 
-**The moment hierarchy** (the paper's Fig. 6). (a) $\mu_2$ counts single allowed hops of a
+**The moment hierarchy** (the paper's Fig. 7; Fig. 6 in arXiv v1). (a) $\mu_2$ counts single allowed hops of a
 particle to an empty neighbor: a spin-blind connectivity count. (b) $\mu_4$ is the first
 moment to see exchange: two four-hop closed paths, a diagonal and an edge channel, return the
 occupied sites $\{i,j\}$ to themselves, and restore the initial state only when $i$ and $j$
@@ -30,16 +30,21 @@ $U^{-2}$.
 1. **Second moment, exactly.** For $n$ fermions on any finite graph with $N$ sites and any
    spin-independent Hermitian hopping, $\mu_2=\frac{n(N-n)}{N(N-1)}\sum_{i\ne j}|t_{ij}|^2$,
    whatever the spin composition (machine-checked).
-2. **Exchange in the fourth moment.** On any finite graph $\mu_4(U\to\infty)$ is exactly
+2. **The fourth moment, exactly.** On any finite graph $\mu_4(U\to\infty)$ is exactly
    affine in the same-spin pair count, because four hops can only produce the identity, a
-   transposition or a 3-cycle (machine-checked). For uniform hopping the slope is
-   $\alpha(N,n)=-8C_4(N-n)(8N-11n-2)/[N(N-1)(N-2)(N-3)]$, fixed by the number $C_4$ of
-   4-cycles.
+   transposition or a 3-cycle. For uniform hopping on a finite simple graph it is in closed
+   form, $\mu_4=A(N,n)+\alpha(N,n)P_{\rm same}$: the slope
+   $\alpha(N,n)=-8C_4(N-n)(8N-11n-2)/[N(N-1)(N-2)(N-3)]$ is fixed by the number $C_4$ of
+   4-cycles, and the intercept $A(N,n)$, from the fourth moment of hard-core bosons, by the
+   numbers of edges, of pairs of edges sharing a vertex, of disjoint edge pairs and of
+   4-cycles (all machine-checked, for H∞ built from fermion operators).
 3. **Finite $U$.** The $1/U$ term of the band variance vanishes on every triangle-free graph
    (the cross term is machine-checked). The $U^{-2}$ coefficient is an exact trace; its sign
    and its near-proportionality to $N_\uparrow N_\downarrow$ at low filling are numerical.
-4. **Flux.** For two particles, the exchange slope responds as $\cos\Phi_\square$, an ordinary
-   charge-$e$ harmonic; the Schrieffer–Wolff doublon hopping carries the doubled phase
+4. **Flux.** With arbitrary Peierls phases the fourth moment stays in closed form: a
+   spin-independent baseline plus one coefficient times $\sum_C\cos\Theta_C$ over the Wilson
+   phases of the 4-cycles (derived and checked, not machine-checked). The exchange slope
+   responds as $\cos\Phi_\square$, an ordinary charge-$e$ harmonic; the Schrieffer–Wolff doublon hopping carries the doubled phase
    $t_de^{2iA_{ij}}$ (its second-order terms machine-checked for two electrons), compared without fitted
    parameters with the exact flux-threaded two-electron U-band.
 
@@ -147,16 +152,17 @@ set size.
 
 | Script | Manuscript | Output in `results/` | Time | Peak memory |
 |---|---|---|---|---|
-| `tbc_dos.py` | Figs. 1, 2, 9 | `tbc_compare_U0_vs_4D.png`, `kgrid_collapse_universal.png`, `kgrid_compare_Uband_vs_2D.png` | 1.5 min | 0.2 GB |
+| `tbc_dos.py` | Figs. 1, 2, 10 | `tbc_compare_U0_vs_4D.png`, `kgrid_collapse_universal.png`, `kgrid_compare_Uband_vs_2D.png` | 1.5 min | 0.2 GB |
 | `fig_sectors.py` | Fig. 3 (sector structure, full spectra) | `fig_sectors.png` | 30 min | 8 GB |
 | `fig_fpc_Lscaling.py` | Fig. 4 (finite-population correction, L = 3…10) | `fpc_Lscaling.png` | 1 s | 0.1 GB |
 | `fig_naive_vs_fpc.py` | Fig. 5 (naive vs. FPC vs. full projection) | `naive_vs_fpc_vs_exact.png` | 2 s | 0.1 GB |
-| `fig_dos_gaussian_collapse.py` | Fig. 7 (Appendix A, Gaussian collapse of the hypercubic DOS) | `dos_gaussian_collapse.png` | 14 s | 0.1 GB |
-| `mu4_flux_validation.py` | Fig. 10 (Appendix E, μ₄ under uniform flux) | `mu4_flux_response.png` | 11 s | 0.1 GB |
-| `doublon_flux_validation.py` | Fig. 11 (Appendix E, doublon flux response: charge-2e check) | `doublon_flux_response.png` | 27 s | 0.2 GB |
+| `fig_mu4_kurtosis.py` | Fig. 6 (excess kurtosis of the U = ∞ band from the exact μ₂ and μ₄) | `mu4_kurtosis.png` | 4 s | 0.4 GB |
+| `fig_dos_gaussian_collapse.py` | Fig. 8 (Appendix A, Gaussian collapse of the hypercubic DOS) | `dos_gaussian_collapse.png` | 14 s | 0.1 GB |
+| `mu4_flux_validation.py` | Fig. 11 (Appendix E, μ₄ under uniform flux) | `mu4_flux_response.png` | 11 s | 0.1 GB |
+| `doublon_flux_validation.py` | Fig. 12 (Appendix E, doublon flux response: charge-2e check) | `doublon_flux_response.png` | 27 s | 0.2 GB |
 
-Figs. 6 and 8 are schematics drawn directly in LaTeX and have no script. The figure at the
-top of this README is Fig. 6 redrawn; its source and build commands are in
+Figs. 7 and 9 are schematics drawn directly in LaTeX and have no script (Figs. 6 and 8 in
+arXiv v1, before Fig. 6 was added). The figure at the top of this README is Fig. 7 redrawn; its source and build commands are in
 [`docs/figures/hierarchy.tex`](docs/figures/hierarchy.tex).
 
 ### 3. Checks that print to the terminal
@@ -262,6 +268,7 @@ one only prints `module loaded`.
 | `sector_theory.py` | Antisymmetrized k-fermion hopping and theoretical moments of sums of cosine dispersions |
 | `uinf_traces_sparse.py` | Sparse H∞ = P₀HₜP₀ and μ₂, μ₄ from traces |
 | `uinf_traces.py` | Dense H∞ for small systems (not used by the scripts above) |
+| `mu4_closed_form.py` | The closed forms of the fourth moment: hard-core-boson moment, intercept A(N, n), slope α(N, n), and the Peierls-phase form; graph invariants and 4-cycles |
 | `doublon_doublon.py`, `doublon_tmatrix.py` | Two-doublon problem in a finite box and on the infinite lattice (T-matrix); exploratory, not used by the scripts above |
 
 ## Citing and license
@@ -269,8 +276,9 @@ one only prints `module loaded`.
 Please cite the paper, [arXiv:2611.19929](https://arxiv.org/abs/2611.19929), and this
 repository through its Zenodo record,
 [doi:10.5281/zenodo.24244236](https://doi.org/10.5281/zenodo.24244236). That DOI covers all
-versions; each release also has its own DOI (v1.0.0, the version the paper cites, is
-[10.5281/zenodo.24244237](https://doi.org/10.5281/zenodo.24244237)).
+versions; each release also has its own DOI on its Zenodo record (arXiv v1 of the paper cites
+v1.0.0, [10.5281/zenodo.24244237](https://doi.org/10.5281/zenodo.24244237); arXiv v2 cites
+v1.1.0).
 [`CITATION.cff`](CITATION.cff) has both; GitHub's "Cite this repository" shows the paper.
 
 ```bibtex

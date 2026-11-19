@@ -1,7 +1,8 @@
 # Statement
 
 The precise claims of *Spectral Moments of the Projected Hubbard Configuration Graph*: the
-27 principal claims, frozen on 2026-11-13 and changed since only through
+38 principal claims, frozen in two steps (27 on 2026-11-13 and 11 on 2026-11-18), and
+changed since only through
 [`docs/drift-log.tsv`](docs/drift-log.tsv), with the conventions they use, the non-claims, and
 the evidence tier of each. Every other numbered result of the paper, with its evidence, is a
 row of [`docs/correspondence.tsv`](docs/correspondence.tsv).
@@ -24,13 +25,17 @@ This file is generated from the register; the claims below are its frozen rows, 
   second moment. $P_{\rm same}=\binom{N_\uparrow}{2}+\binom{N_\downarrow}{2}$ is the same-spin
   pair count, $P_3=\binom{N_\uparrow}{3}+\binom{N_\downarrow}{3}$, and
   $\mu_4(\infty)=A(N,n)+\alpha(N,n)P_{\rm same}$ defines the exchange coefficient $\alpha$.
-  $C_4$ is the number of 4-cycles of the graph (cycle subgraphs of length four, chords allowed).
+  $C_4$ is the number of 4-cycles of the graph (cycle subgraphs of length four, chords allowed);
+  $m$ is the number of edges, $W=\sum_v\binom{d_v}{2}$ the number of pairs of edges sharing a
+  vertex, $D=\binom m2-W$ the number of pairs of disjoint edges, and
+  $p_{ab}=(n)_a(N-n)_b/(N)_{a+b}$.
 - **Doublon.** $\varepsilon_d=U+8\lambda^2/U$ and $t_d=2\lambda^2/U$ on the square lattice; the
   doublon band is $\varepsilon_d+2t_d(\cos K_x+\cos K_y)$.
 - **Finite U.** $V=T_1^\dagger T_1$ with $T_1=Q_1H_tP_0$; $c_2$ is the $U^{-2}$ coefficient of
   $\mu_{2,c}(U)$.
 - **Flux.** Peierls phases $t_{ij}\to t_{ij}e^{iA_{ij}}$, plaquette flux
-  $\Phi_\square=\sum_\square A_{ij}$.
+  $\Phi_\square=\sum_\square A_{ij}$; $\Theta_C=\sum_{(ij)\in C}A_{ij}$ is the Wilson phase of a
+  4-cycle $C$.
 
 ## Evidence tiers
 
@@ -100,6 +105,18 @@ On any finite simple graph with N>=4 sites, uniform hopping and C4 four-cycles (
 
 For the d-dimensional periodic hypercubic lattice (z=2d) with every side 3 or >=5, the 4-cycles are the plaquettes, $C_4=Nd(d-1)/2$, so $\alpha_d(N,2)=-32d(d-1)/(N-1)=-16(d-1)z/(N-1)$; it reproduces $\alpha(27,2)=-96/13$ at d=3 and -48/31 on 5x5x5; each side of length 4 adds axis-ring 4-cycles, giving $-16[2d(d-1)+m]/(N-1)$ with m such sides (4x4x4: -80/21; 3x4: -80/11; 4x5: -80/19).
 
+**`app:mu4walks#hcb-lemma`** (lemma; tier L, DIRECT; Lean: `hardCoreBosonFourthMoment`)
+
+On any finite simple graph with N>=4 vertices, m edges, $W=\sum_v\binom{d_v}{2}$, $D=\binom m2-W$ pairs of disjoint edges and C4 four-cycles, the fourth moment of n hard-core bosons with uniform hopping (the adjacency matrix of the n-token graph, the fixed-n block of the spin-1/2 XX model) is $\mu_4^{\rm HCB}=(2m+4W+8C_4)p_{11}+(24D+16C_4)p_{22}$, $p_{ab}=(n)_a(N-n)_b/(N)_{a+b}$; equivalently $\Tr(\zeta^{\hat n}H^4)=(2m+4W+8C_4)\zeta(1+\zeta)^{N-2}+(24D+16C_4)\zeta^2(1+\zeta)^{N-4}$.
+
+**`eq:Aclosed`** (formula; tier L, DIRECT; Lean: `fourthMomentHubbard`, `fourthMomentHubbardTorus`, `torusGraphCounts`)
+
+On any finite simple graph with N>=4 sites and uniform hopping, for every n, $A(N,n)=(2m+4W+8C_4)p_{11}+(24D-16C_4)p_{22}-12C_4p_{31}$ (units of $\lambda^4$), from eq:AfromHCB, the hard-core-boson lemma and $T_2=32C_4p_{22}$, $T_3=8C_4p_{31}$ (eq:alphaapprox); no step assumes the graph triangle-free; on the LxL torus with L=3 or L>=5, $A=36Np_{11}+(48N^2-184N)p_{22}-12Np_{31}$; at L=4 ($C_4=24$), A=2272/15, 10534/35, 5984/13 for n=2,3,4 (the intercepts of the lines through tab:mu4exact).
+
+**`sec:mu4exchange#proposition`** (proposition; tier L, DIRECT; Lean: `fourthMomentHubbard`, `torusGraphCounts`)
+
+On any finite simple graph with N>=4 sites, m edges, W pairs of edges sharing a vertex, D pairs of disjoint edges, C4 four-cycles and uniform hopping lambda without Peierls phases (for those, eq:mu4flux), for projected spin-1/2 fermions in any sector (N_up, N_down) with n=N_up+N_down<=N and $P_{\rm same}=\binom{N_\uparrow}{2}+\binom{N_\downarrow}{2}$ (for n<=1, P_same=0 and mu4=A), in units of $\lambda^4$: $\mu_4(\infty)=A(N,n)+\alpha(N,n)P_{\rm same}$ with $A(N,n)=(2m+4W+8C_4)p_{11}+(24D-16C_4)p_{22}-12C_4p_{31}$, $\alpha(N,n)=-8C_4(N-n)(8N-11n-2)/[N(N-1)(N-2)(N-3)]$ and $p_{ab}=(n)_a(N-n)_b/(N)_{a+b}$; on the square-lattice torus with L=3 or L>=5, $C_4=N$ and $\alpha(N,2)=-64/(N-1)$.
+
 ## §7 Finite U
 
 **`sec:SW#centralmoment`** (formula; tier A, DIRECT)
@@ -140,6 +157,18 @@ The exact two-electron U-band under a boundary twist is pi-periodic up to deviat
 
 Against the exact flux-threaded finite-U two-electron Hubbard problem on the 6x6 torus, over all 36 quantized uniform fluxes, with no fitted parameters, the doubled-phase doublon prediction for the U-band outperforms an undoubled control in RMS residual by a factor of 12.5 at U=20 lambda and 48 at U=40 lambda (residual ratio 0.080 and 0.021; 0.280 at U=10 lambda and 0.0052 at U=80 lambda).
 
+**`eq:mu4flux`** (proposition; tier A, DIRECT)
+
+On any finite simple graph with N>=4 sites, m edges, W pairs of edges sharing a vertex, D pairs of disjoint edges, uniform hopping modulus lambda and arbitrary spin-independent Peierls phases $A_{ij}=-A_{ji}$, for any number n<=N of projected spin-1/2 fermions, in units of $\lambda^4$: $\mu_4(\Theta)=(2m+4W)p_{11}+24Dp_{22}+B(N,n,P_{\rm same})\sum_C\cos\Theta_C$, the sum over every 4-cycle C (chords allowed), $\Theta_C$ its Wilson phase, $B=8p_{11}-16p_{22}-12p_{31}-8(N-n)(8N-11n-2)P_{\rm same}/[N(N-1)(N-2)(N-3)]$ (eq:Bflux); at zero phases it is sec:mu4exchange#proposition. Proof: every phase-dependent cross term of $\sum|(H^2)_{c''c}|^2$ closes one 4-cycle, with sign from the closed-walk lemma and per-cycle weight $8p_{13}-32s_2p_{22}+8s_3p_{31}$ = B.
+
+**`sec:futurework#alphaflux-n`** (formula; tier A, COMPOSITION)
+
+On the LxL torus with L=3 or L>=5 every 4-cycle is a plaquette, so under a uniform flux $\sum_C\cos\Theta_C=N\cos\Phi_\square$ and the exchange slope is $\alpha(N,n)\cos\Phi_\square$ at every n (eq:alphaflux at n=2).
+
+**`sec:futurework#L4-winding`** (formula; tier A, DIRECT)
+
+At L=4 the four rows and four columns are 4-cycles winding around the torus; their Wilson phases are boundary holonomies. With the link phases of the numerics (Landau gauge: a +x hop at height y carries $-y\Phi_\square$, the +y wrap-around hop in column x carries $4x\Phi_\square$) and twists $\theta_x,\theta_y$, rows carry $\theta_x-4y\Phi_\square$ and columns $\theta_y+4x\Phi_\square$; without twists, at $\Phi_\square=2\pi p/16$, $\sum_C\cos\Theta_C=16\cos\Phi_\square+2+4\cos4\Phi_\square+2\cos8\Phi_\square$. The L=4 cos 4Phi, cos 8Phi terms and twist dependence come from the winding loops' holonomies, which differ row to row by the strip flux $4\Phi_\square$ and depend on the twists; no contractible loop produces them.
+
 ## §9 What is not claimed
 
 **`sec:benchmark#nonclaim-doublonform`** (non-claim; tier C, CITED)
@@ -156,7 +185,7 @@ The paper does not derive beta(L,n), the prefactor of N_up N_down in the U^-2 co
 
 **`sec:discussion#nonclaims`** (non-claim; tier A, NONE)
 
-Dedicated non-claims paragraph: beta(L,n), the sign of c2, A(N,n), the flux-independent baseline of mu4(Phi) and the many-cluster sector shift are not derived; the exchange coefficient (uniform hopping) depends only on C4 and is not a law in z, alpha_d(N,2) needs every side 3 or >=5; the doublon Hamiltonian derived for one doublon and its pi-periodicity exact only for that model; no many-pair stiffness, ODLRO, condensation, collective transport or superconductivity; projection, moment method and doublon form not claimed as new; machine-checked scope in App. F.
+Dedicated non-claims paragraph: beta(L,n), the sign of c2 and the many-cluster sector shift are not derived; the graph expansion behind the hard-core-boson moment (eq:muHCB) is not new; the fourth moment under Peierls phases (eq:mu4flux) is derived but not machine-checked; the exchange coefficient (uniform hopping) depends only on C4 and is not a law in z, alpha_d(N,2) needs every side 3 or >=5; the doublon Hamiltonian derived for one doublon and its pi-periodicity exact only for that model; no many-pair stiffness, ODLRO, condensation, collective transport or superconductivity; projection, moment method and doublon form not claimed as new; machine-checked scope in App. F.
 
 **`sec:futurework#nonclaim-sc`** (non-claim; tier A, NONE)
 
@@ -165,3 +194,23 @@ The paper establishes repulsive binding, a microscopic charge-2e gauge coupling 
 **`app:mu4walks#nonclaim-graphgeneral`** (non-claim; tier A, NONE)
 
 The exchange coefficient depends on the graph only through its number of 4-cycles: the square-lattice value -64/(N-1), written -16z/(N-1), is not a law in the coordination number (kagome, d=2 and z=4, has C4=0 and alpha=0; d=3 gives -96/13, not -48/13 or -72/13); the hypercubic form alpha_d(N,2) holds only on tori whose sides are all 3 or >=5.
+
+**`sec:mu4exchange#nonclaim-xy`** (non-claim; tier C, CITED)
+
+Not claimed as new: the graph expansion behind the hard-core-boson moment, the fourth-order term of the spin-1/2 XY (quantum lattice gas) high-temperature series (Betts, Elliott and Lee 1970; Lee 1971) in its field-dependent, grand-canonical form (Rogiers and Dekeyser 1973; Dekeyser and Rogiers 1975); the token graphs and the XX block (Fabila-Monroy et al. 2012; Matsubara and Matsuda 1956; Audenaert et al. 2007) and the classification of their induced 4-cycles (Fabila-Monroy and Trujillo-Negrete 2022); the grand-canonical high-temperature series of the U=infinity Hubbard and J=0 t-J models on specific lattices (Plischke 1974; Kubo and Tada 1983, 1984; Putikka, Luchini and Ogata 1992); the Thouless-Nagaoka hole loop (the 3-cycle term). What is added is the exact canonical (fixed N_up, N_down) form on an arbitrary finite graph and its combination into A(N,n).
+
+**`sec:futurework#nonclaim-gain`** (non-claim; tier C, CITED)
+
+Not claimed as new: at n=1, eq:mu4flux is $\Tr A_\Theta^4/N$ with $\Tr A_\Theta^4=2m+4W+8\sum_C\cos\Theta_C$ for the magnetic adjacency matrix, the length-4 case of the closed-walk sum of gain graphs (Cavaleri and Donno 2022, Eq. (4.3)), on the square lattice the Hofstadter moment $28+8\cos\Phi_\square$ per site (Bellissard et al. 1997; Ouvry, Wagner and Wu 2016).
+
+**`sec:futurework#nonclaim-flux-lean`** (non-claim; tier A, NONE)
+
+The fourth moment under Peierls phases (eq:mu4flux), including its flux-independent baseline $(2m+4W)p_{11}+24Dp_{22}$, is derived and checked numerically but not machine-checked: the fourth-moment Lean statements (App. F) are for zero phases.
+
+**`sec:futurework#multidoublon`** (non-claim; tier A, NONE)
+
+With several doublons further second-order terms appear, not derived here: in a doublon-only sector with no unpaired electrons and no interaction beyond on-site U, a nearest-neighbour doublon-doublon interaction; with unpaired electrons the doublon already moves at first order (exchanging places with a singly occupied neighbour) and the second-order terms include spin exchange and correlated three-site hoppings; extended interactions add further terms.
+
+**`sec:futurework#loops-beyond-second`** (non-claim; tier A, NONE)
+
+Beyond second order the single-doublon Hamiltonian acquires flux-dependent terms: a virtual electron running around a loop of length l contributes that loop's ordinary charge-e Wilson phase at order $\lambda^l/U^{l-1}$ ($\lambda^3/U^2$ around a triangle); on the LxL torus the twist is first felt at length L, when the pair dissociates and its two electrons together wind once around the torus, the $(2\lambda)^L/U^{L-1}$ deviation. These change the effective Hamiltonian beyond doubled-link hopping, not the doublon's gauge charge, which is 2e at every order.

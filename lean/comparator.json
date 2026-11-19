@@ -47,7 +47,12 @@
     "HubbardMoments.secondMomentHubbardTorus",
     "HubbardMoments.schriefferWolffHubbard",
     "HubbardMoments.secondMomentWeightedTheorem",
-    "HubbardMoments.secondMomentHubbardWeighted"
+    "HubbardMoments.secondMomentHubbardWeighted",
+    "HubbardMoments.torusGraphCounts",
+    "HubbardMoments.hardCoreBosonFourthMoment",
+    "HubbardMoments.fourthMomentHubbard",
+    "HubbardMoments.fourthMomentHubbardTorus",
+    "HubbardMoments.fourthMomentTableL4"
   ],
   "permitted_axioms": [
     "propext",

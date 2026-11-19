@@ -4,7 +4,7 @@
 # doi is the concept DOI (all versions); each release also has its own DOI on its Zenodo record.
 # Not listed on purpose: the commit (a file cannot contain its own commit; the tag pins it).
 cff-version: 1.2.0
-message: "If you use this code, the checks or the Lean formalization, please cite the paper below and this software through its Zenodo DOI, 10.5281/zenodo.24244236."
+message: "If you use this code, the checks or the Lean formalization, please cite the paper, arXiv:2611.19929 (https://arxiv.org/abs/2611.19929), and this software through its Zenodo DOI, 10.5281/zenodo.24244236."
 type: software
 title: "Hubbard spectral moments: code, checks and Lean formalization for 'Spectral Moments of the Projected Hubbard Configuration Graph'"
 abstract: >-
@@ -23,8 +23,8 @@ authors:
 repository-code: "https://github.com/zhineos/hubbard-spectral-moments"
 doi: "10.5281/zenodo.24244236"
 license: Apache-2.0
-version: "1.0.1"
-date-released: "2026-11-17"
+version: "1.1.0"
+date-released: "2026-11-19"
 keywords:
   - Hubbard model
   - spectral moments

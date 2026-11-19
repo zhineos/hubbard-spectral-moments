@@ -19,6 +19,8 @@ What the paper takes from earlier work, and what is new. The paper's introductio
 | mapping few-particle problems to single-particle hopping on a higher-dimensional lattice; many-body problems as hopping on a configuration or Fock-space graph | Vallejo, Navarro and Espinosa (2003); Huipe et al. (2024); Altshuler et al. (1997); Roy and Logan (2025) | the language of §3 and §5 |
 | the hypercubic-lattice density of states as a Bessel integral; lattice Green's functions | Economou (2006); Morita (1971) | Appendix A |
 | moments of a sum sampled without replacement (finite-population correction) | classical sampling statistics | §5.3 and Appendix B; the formulas are derived and machine-checked here, not claimed as new |
+| the fourth-order high-temperature expansion of the spin-½ XY model with occupation-resolved occurrence factors, and its field-dependent (grand-canonical) form | Betts, Elliott and Lee (1970); Lee (1971); Rogiers and Dekeyser (1973); Dekeyser and Rogiers (1975) | the graph expansion behind the hard-core-boson moment of §6; its grand-canonical limit reproduces the f.c.c. coefficient of Rogiers and Dekeyser (1973) |
+| token graphs, and how their 4-cycles arise from the base graph | Fabila-Monroy et al. (2012); Fabila-Monroy and Trujillo-Negrete (2022) | the hard-core-boson configuration graph is the $n$-token graph |
 
 ## New in this work
 
@@ -31,6 +33,15 @@ What the paper takes from earlier work, and what is new. The paper's introductio
 - The **exchange coefficient** $\alpha(N,n)=-8C_4(N-n)(8N-11n-2)/[N(N-1)(N-2)(N-3)]$ on any
   finite simple graph with uniform hopping, fixed by the number of 4-cycles; its square-lattice,
   hypercubic, $L=4$ and kagome cases.
+- The **intercept** $A(N,n)=(2m+4W+8C_4)p_{11}+(24D-16C_4)p_{22}-12C_4p_{31}$ (added after
+  v1). With $\alpha(N,n)$ it gives $\mu_4(U\to\infty)$ in closed form on every finite simple
+  graph, for every spin composition (machine-checked since v1.1.0, for $H_\infty$ built from
+  fermion operators). It rests on the canonical (fixed-$n$) fourth moment of
+  hard-core bosons, whose graph expansion is classical (see above).
+- The **fourth moment under arbitrary Peierls phases** (added after v1):
+  $\mu_4(\Theta)=(2m+4W)p_{11}+24Dp_{22}+B\sum_C\cos\Theta_C$ over the Wilson phases of the
+  4-cycles, with a flux-independent baseline that does not depend on the spin composition;
+  derived and checked numerically, not machine-checked.
 - The **vanishing $1/U$ term** of the band variance on every triangle-free graph (the cross
   term is machine-checked), and the $U^{-2}$ coefficient as an exact trace; its sign and its
   near-proportionality to $N_\uparrow N_\downarrow$ at low filling are numerical.

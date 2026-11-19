@@ -56,3 +56,8 @@ the standard axioms of Mathlib. Run from `lean/` with `lake env lean AxiomAudit.
 #print axioms HubbardMoments.schriefferWolffHubbard
 #print axioms HubbardMoments.secondMomentWeightedTheorem
 #print axioms HubbardMoments.secondMomentHubbardWeighted
+#print axioms HubbardMoments.torusGraphCounts
+#print axioms HubbardMoments.hardCoreBosonFourthMoment
+#print axioms HubbardMoments.fourthMomentHubbard
+#print axioms HubbardMoments.fourthMomentHubbardTorus
+#print axioms HubbardMoments.fourthMomentTableL4

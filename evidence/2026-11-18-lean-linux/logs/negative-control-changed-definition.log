@@ -1,0 +1,61 @@
+Resolving dependencies
+Building Challenge
+⚠ [9049/9050] Replayed Challenge
+warning: Challenge.lean:26:8: declaration uses `sorry`
+warning: Challenge.lean:28:8: declaration uses `sorry`
+warning: Challenge.lean:30:8: declaration uses `sorry`
+warning: Challenge.lean:32:8: declaration uses `sorry`
+warning: Challenge.lean:34:8: declaration uses `sorry`
+warning: Challenge.lean:36:8: declaration uses `sorry`
+warning: Challenge.lean:38:8: declaration uses `sorry`
+warning: Challenge.lean:40:8: declaration uses `sorry`
+warning: Challenge.lean:42:8: declaration uses `sorry`
+warning: Challenge.lean:44:8: declaration uses `sorry`
+warning: Challenge.lean:46:8: declaration uses `sorry`
+warning: Challenge.lean:48:8: declaration uses `sorry`
+warning: Challenge.lean:50:8: declaration uses `sorry`
+warning: Challenge.lean:52:8: declaration uses `sorry`
+warning: Challenge.lean:54:8: declaration uses `sorry`
+warning: Challenge.lean:56:8: declaration uses `sorry`
+warning: Challenge.lean:58:8: declaration uses `sorry`
+warning: Challenge.lean:60:8: declaration uses `sorry`
+warning: Challenge.lean:62:8: declaration uses `sorry`
+warning: Challenge.lean:64:8: declaration uses `sorry`
+warning: Challenge.lean:66:8: declaration uses `sorry`
+warning: Challenge.lean:68:8: declaration uses `sorry`
+warning: Challenge.lean:70:8: declaration uses `sorry`
+warning: Challenge.lean:72:8: declaration uses `sorry`
+warning: Challenge.lean:74:8: declaration uses `sorry`
+warning: Challenge.lean:76:8: declaration uses `sorry`
+warning: Challenge.lean:78:8: declaration uses `sorry`
+warning: Challenge.lean:80:8: declaration uses `sorry`
+warning: Challenge.lean:82:8: declaration uses `sorry`
+warning: Challenge.lean:84:8: declaration uses `sorry`
+warning: Challenge.lean:86:8: declaration uses `sorry`
+warning: Challenge.lean:88:8: declaration uses `sorry`
+warning: Challenge.lean:90:8: declaration uses `sorry`
+warning: Challenge.lean:92:8: declaration uses `sorry`
+warning: Challenge.lean:94:8: declaration uses `sorry`
+warning: Challenge.lean:96:8: declaration uses `sorry`
+warning: Challenge.lean:98:8: declaration uses `sorry`
+warning: Challenge.lean:100:8: declaration uses `sorry`
+warning: Challenge.lean:102:8: declaration uses `sorry`
+warning: Challenge.lean:104:8: declaration uses `sorry`
+warning: Challenge.lean:106:8: declaration uses `sorry`
+warning: Challenge.lean:108:8: declaration uses `sorry`
+warning: Challenge.lean:110:8: declaration uses `sorry`
+warning: Challenge.lean:112:8: declaration uses `sorry`
+warning: Challenge.lean:114:8: declaration uses `sorry`
+warning: Challenge.lean:116:8: declaration uses `sorry`
+warning: Challenge.lean:118:8: declaration uses `sorry`
+warning: Challenge.lean:120:8: declaration uses `sorry`
+warning: Challenge.lean:122:8: declaration uses `sorry`
+warning: Challenge.lean:124:8: declaration uses `sorry`
+warning: Challenge.lean:126:8: declaration uses `sorry`
+Build completed successfully (9050 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, HubbardMoments.secondMomentTheorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building NegativeControls.ChangedDefinition
+✔ [2/2] Built NegativeControls.ChangedDefinition (183ms)
+Build completed successfully (2 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, HubbardMoments.secondMomentTheorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from NegativeControls.ChangedDefinition
+error: Const does not match between challenge and target 'HubbardMoments.Spec.SecondMomentTheorem'

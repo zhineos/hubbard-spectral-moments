@@ -16,6 +16,15 @@ public import HubbardMoments.ClosedWalks
 public import HubbardMoments.Fermions
 public import HubbardMoments.Hubbard
 public import HubbardMoments.Weighted
+public import HubbardMoments.FourthMoment.GraphCounts
+public import HubbardMoments.FourthMoment.HardCoreBosons
+public import HubbardMoments.FourthMoment.FermionSigns
+public import HubbardMoments.FourthMoment.FermionPaths
+public import HubbardMoments.FourthMoment.FermionValues
+public import HubbardMoments.FourthMoment.FermionDelta
+public import HubbardMoments.FourthMoment.SpinCounts
+public import HubbardMoments.FourthMoment.FermionMoment
+public import HubbardMoments.FourthMoment.TorusMoment
 public import HubbardMoments.Main
 
 /-!

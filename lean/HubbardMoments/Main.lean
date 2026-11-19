@@ -12,6 +12,7 @@ public import HubbardMoments.TorusBand
 public import HubbardMoments.ClosedWalks
 public import HubbardMoments.Hubbard
 public import HubbardMoments.Weighted
+public import HubbardMoments.FourthMoment.TorusMoment
 
 /-!
 # Proofs of the claims
@@ -208,5 +209,17 @@ theorem secondMomentWeightedTheorem : Spec.SecondMomentWeightedTheorem := by
 theorem secondMomentHubbardWeighted : Spec.SecondMomentHubbardWeighted := by
   intro V σ _ _ _ _ tt ord n htt hB hN
   exact secondMoment_projectedHubbardWeighted ord htt n hB hN
+
+theorem torusGraphCounts : Spec.TorusGraphCounts := torus_graph_counts
+
+theorem hardCoreBosonFourthMoment : Spec.HardCoreBosonFourthMoment := fourthMoment_hardCoreHopping
+
+theorem fourthMomentHubbard : Spec.FourthMomentHubbard := fourthMoment_projectedHubbard
+
+theorem fourthMomentHubbardTorus : Spec.FourthMomentHubbardTorus :=
+  fourthMoment_projectedHubbard_torus
+
+theorem fourthMomentTableL4 : Spec.FourthMomentTableL4 :=
+  fourthMoment_projectedHubbard_torus_four_table
 
 end HubbardMoments

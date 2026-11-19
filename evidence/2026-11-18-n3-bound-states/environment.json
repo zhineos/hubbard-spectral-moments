@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-18 22:41:04 CET",
+  "machine": "x86_64",
+  "os": "Linux-6.12.117+deb13-amd64-x86_64-with-glibc2.41",
+  "cpus": 32,
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "git_commit": "f4eeadb8a6fb3d0be151d7c9342fa2a1a0b0de06",
+  "working_tree_dirty": false
+}

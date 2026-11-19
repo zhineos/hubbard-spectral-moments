@@ -30,6 +30,7 @@ import sector_theory as st  # noqa: E402
 from frozen_check import problems as frozen_problems  # noqa: E402
 from hinf_local import (apply_H, basis, cfg, four_cycles, h2_diag, h4_diag, kagome_neighbors,  # noqa: E402
                         small_graphs, torus_neighbors)
+import mu4_closed_form as m4c  # noqa: E402
 
 RESULTS = []
 BETA_SPREAD = {4: "0.14", 5: "0.06", 6: "0.03"}   # printed in the paper (sec:SW), percent
@@ -449,6 +450,9 @@ def main():
         slopes = {(mu4[c] - mu4[d]) / (p_same(*c) - p_same(*d)) for c, d in zip(comps, comps[1:])}
         check("sec:mu4exchange", f"alpha(N,n) closed form, L={L} n={n} (all slopes)", slopes,
               {alpha_formula(L * L, n)})
+        nbL = torus_neighbors((L, L))[0]
+        check("eq:Aclosed", f"mu4 = A + alpha P_same, L={L} n={n}, every composition",
+              mu4, {c: m4c.mu4_fermion(nbL, *c) for c in comps})
     check("sec:mu4exchange", "alpha(25,6) closed form = n=6 evidence slope -38/23",
           alpha_formula(25, 6), Fraction(-38, 23))
     # eq:alphaC4: on any finite simple graph, alpha(N,n) = -8 C4 (N-n)(8N-11n-2) / [N(N-1)(N-2)(N-3)]
@@ -467,8 +471,40 @@ def main():
             slopes = {(m[c] - m[d]) / (p_same(*c) - p_same(*d)) for c, d in zip(comps, comps[1:])}
             check("sec:mu4exchange", f"alpha(N,n) = C4 form on {name} (N={N}, C4={C}), n={n}", slopes,
                   {alpha_c4(N, n, C)})
+            check("eq:Aclosed", f"mu4 = A + alpha P_same on {name}, n={n}, every composition",
+                  m, {c: m4c.mu4_fermion(nb, *c) for c in comps})
     check("sec:mu4exchange", "alpha(N,2) closed form reduces to -64/(N-1)",
           {alpha_formula(N, 2) == Fraction(-64, N - 1) for N in range(9, 200)}, {True})
+
+    # app:mu4walks#hcb-lemma: mu4 of n hard-core bosons (the n-token graph) is
+    # (2m + 4W + 8C4) p11 + (24D + 16C4) p22, against exact enumeration in every sector
+    hcb_graphs = dict(small_graphs(), **{"torus 4x4": torus_neighbors((4, 4))[0],
+                                         "torus 3x4": torus_neighbors((3, 4))[0],
+                                         "kagome 2x2 (N=12)": kagome_neighbors(2)})
+    for name, nb in hcb_graphs.items():
+        ns = [n for n in range(len(nb) + 1) if comb(len(nb), n) <= 5000]
+        check("app:mu4walks#hcb-lemma", f"mu4_HCB closed form on {name}, n = 0..{ns[-1]}",
+              [m4c.hcb_mu4_exact(nb, n) for n in ns], [m4c.mu4_hcb(nb, n) for n in ns])
+    # eq:Aclosed: the values printed in tab:mu4exact (L = 4) and tab:n6test (L = 5, n = 6)
+    printed = {(4, 2, 0): Fraction(2176, 15), (4, 1, 1): Fraction(2272, 15), (4, 3, 0): Fraction(9976, 35),
+               (4, 2, 1): Fraction(10348, 35), (4, 4, 0): Fraction(197632, 455),
+               (4, 3, 1): Fraction(203536, 455), (4, 2, 2): Fraction(15808, 35),
+               (5, 6, 0): Fraction(253593, 253), (5, 5, 1): Fraction(255683, 253),
+               (5, 4, 2): Fraction(256937, 253), (5, 3, 3): Fraction(257355, 253)}
+    check("eq:Aclosed", "A + alpha P_same = every value printed in tab:mu4exact, tab:n6test",
+          {k: m4c.mu4_fermion(torus_neighbors((k[0], k[0]))[0], k[1], k[2]) for k in printed}, printed)
+    check("eq:Aclosed", "A(16, n) at L=4 for n = 2, 3, 4",
+          tuple(m4c.intercept(torus_neighbors((4, 4))[0], n) for n in (2, 3, 4)),
+          (Fraction(2272, 15), Fraction(10534, 35), Fraction(5984, 13)))
+    # sec:mu4exchange#xy-limit: the grand-canonical limit p_ab -> rho^a (1 - rho)^b gives
+    # kappa4/N = (2m+4W+8C4)/N q - (12m+24W-16C4)/N q^2 (q = rho(1-rho)); on the f.c.c. lattice
+    # this is the K^4 coefficient 12{x^2 y + 22 x^3 (y + y^2) + 22 x^4 (y + y^3) - 50 x^4 y^2}
+    # = 540 q - 1128 q^2 of Rogiers & Dekeyser, Phys. Lett. A 46, 206 (1973)
+    Nf, mf, Wf, C4f, _ = m4c.invariants(m4c.fcc_neighbors(3))
+    check("sec:mu4exchange#xy-limit", "f.c.c.: (m, W, C4)/N and the q, q^2 coefficients of kappa4/N",
+          (Fraction(mf, Nf), Fraction(Wf, Nf), Fraction(C4f, Nf),
+           Fraction(2 * mf + 4 * Wf + 8 * C4f, Nf), Fraction(-(12 * mf + 24 * Wf - 16 * C4f), Nf)),
+          (6, 66, 33, 540, -1128))
 
     # app:mu4walks#hypercubic: alpha_d(N,2) = -16(d-1)z/(N-1) on tori with every side 3 or >= 5;
     # it fails as soon as one side is 4
@@ -517,6 +553,107 @@ def main():
               worst < 1e-12, True)
         check("sec:futurework", f"orbital mu4^(1,1)(Phi)-mu4^(1,1)(0) = 16(N-4)(cos Phi-1)/(N-1), L={L}",
               worst_orb < 1e-12, True)
+
+    # eq:mu4flux: mu4 under arbitrary Peierls phases, on any finite simple graph with N >= 4:
+    # mu4 = (2m + 4W) p11 + 24 D p22 + B(N, n, P_same) sum_C cos Theta_C (Theta_C the Wilson phase of
+    # the 4-cycle C). H_inf is built from fermion operators by checks/hinf_flux.py, independently of
+    # mu4_flux_validation.py, except where the manuscript's own gauge is the point (L = 4 below).
+    import hinf_flux as hf
+    check("eq:mu4flux", "B(N,n,P_same) = walk-count form of App. C, N=4..40",
+          {m4c.flux_coefficient(N, a, n - a) == m4c.flux_coefficient_walks(N, a, n - a)
+           for N in range(4, 41) for n in range(N + 1) for a in range(n + 1)}, {True})
+    rng = np.random.default_rng(2026)
+
+    def random_graph(N, prob):
+        edges = [(u, w) for u, w in combinations(range(N), 2) if rng.random() < prob]
+        return [sorted({w for u, w in edges if u == v} | {u for u, w in edges if w == v}) for v in range(N)]
+    flux_graphs = [(f"random N={N} #{k}", random_graph(N, prob)) for k, (N, prob) in
+                   enumerate([(4, 0.8), (5, 0.6), (5, 0.9), (6, 0.5), (6, 0.7), (7, 0.5), (7, 0.6)])]
+    flux_graphs += [("K6", small_graphs()["K6"]), ("triangular 3x3", small_graphs()["triangular 3x3"])]
+    worst, exact_ok, n_exact, n_float = 0.0, True, 0, 0
+    for name, nb in flux_graphs:
+        N, inv, cycles = len(nb), m4c.invariants(nb), m4c.four_cycle_list(nb)
+        quarter = {(u, w): int(rng.integers(4)) for u in range(N) for w in nb[u] if u < w}
+        real = {(u, w): rng.uniform(-np.pi, np.pi) for u in range(N) for w in nb[u] if u < w}
+
+        def ph_q(x, y):
+            return (np.pi / 2) * (quarter[(x, y)] if x < y else -quarter[(y, x)])
+
+        def ph_r(x, y):
+            return real[(x, y)] if x < y else -real[(y, x)]
+        # exact: phases multiple of pi/2, so H has entries in {±1, ±i}, Tr H^4 is an integer and
+        # sum_C cos Theta_C is an integer
+        cos_q = sum(round(np.cos(ph_q(a, b) + ph_q(b, c) + ph_q(c, d) + ph_q(d, a))) for a, b, c, d in cycles)
+        cos_r = hf.wilson_cos_sum(cycles, ph_r)
+        for n in range(N + 1):
+            for a in range(n + 1):
+                b = n - a
+                if len(hf.basis(N, a, b)) > 1500:
+                    continue
+                Hq, Bq = hf.build(nb, a, b, ph_q)
+                exact_ok &= Fraction(hf.tr4_exact(Hq), len(Bq)) == m4c.mu4_fermion_flux(nb, a, b, cos_q, inv)
+                Hr, Br = hf.build(nb, a, b, ph_r)
+                worst = max(worst, abs(hf.mu4(Hr, len(Br)) - float(m4c.flux_baseline(nb, n, inv))
+                                       - float(m4c.flux_coefficient(N, a, b)) * cos_r))
+                n_exact += 1
+                n_float += 1
+    check("eq:mu4flux", f"exact, phases in (pi/2)Z: {n_exact} sectors, {len(flux_graphs)} graphs", exact_ok, True)
+    check("eq:mu4flux", f"random phases: {n_float} sectors, max deviation < 1e-12", worst < 1e-12, True)
+    # sec:futurework#L4-winding: on the 4x4 torus, in the manuscript's Landau gauge
+    # (mu4_flux_validation.link_phase), the 24 four-cycles are the 16 plaquettes (Theta = Phi) and the
+    # 4 rows and 4 columns, which wind around the torus: Theta = 4 Phi y and -4 Phi x, so
+    # sum_C cos Theta_C = 16 cos Phi + 2 sum_{k=0..3} cos(4 k Phi) = 16 cos Phi + 2 + 4 cos 4Phi + 2 cos 8Phi
+    # at the quantized fluxes Phi = 2 pi p / 16. With boundary twists th_x, th_y on the wrap-around
+    # bonds the rows and columns carry 4 Phi y + th_x and th_y - 4 Phi x instead.
+    nb4 = torus_neighbors((4, 4))[0]
+    cyc4, inv4 = m4c.four_cycle_list(nb4), m4c.invariants(nb4)
+
+    def site(v):
+        return v // 4, v % 4   # torus_neighbors((4, 4)) numbers (x, y) as 4 x + y
+
+    def gauge(al, thx=0.0, thy=0.0):
+        def ph(u, w):
+            (x, y), (x2, y2) = site(u), site(w)
+            dx, dy = (x2 - x + 1) % 4 - 1, (y2 - y + 1) % 4 - 1
+            twist = (thx if (dx == 1 and x == 3) else -thx if (dx == -1 and x == 0) else 0.0) + \
+                (thy if (dy == 1 and y == 3) else -thy if (dy == -1 and y == 0) else 0.0)
+            return mfv.link_phase(x, y, dx, dy, 4, al) + twist
+        return ph
+    ok_sum, ok_mfv, ok_twist = True, 0.0, 0.0
+    for pq in range(16):
+        al = 2 * np.pi * pq / 16
+        s = hf.wilson_cos_sum(cyc4, gauge(al))
+        ok_sum &= abs(s - (16 * np.cos(al) + 2 + 4 * np.cos(4 * al) + 2 * np.cos(8 * al))) < 1e-12
+        for a, b in [(2, 0), (1, 1), (2, 1)]:
+            H, D = mfv.build_H(4, a, b, 1.0, al)
+            ok_mfv = max(ok_mfv, abs(mfv.mu2_mu4_sparse(H, D)[1] -
+                                     float(m4c.mu4_fermion_flux(nb4, a, b, Fraction(0), inv4)) -
+                                     float(m4c.flux_coefficient(16, a, b)) * s))
+    check("sec:futurework", "L=4: sum_C cos = 16cos P + 2 + 4cos 4P + 2cos 8P, 16 fluxes", ok_sum, True)
+    check("sec:futurework", "L=4: mu4(Phi) of build_H = eq:mu4flux, 16 fluxes (< 1e-12)", ok_mfv < 1e-12, True)
+    for thx, thy in [(0.7, -1.9), (2.3, 0.4)]:
+        for pq in (1, 3, 6):
+            al = 2 * np.pi * pq / 16
+            ph = gauge(al, thx, thy)
+            s = hf.wilson_cos_sum(cyc4, ph)
+            pred_s = 16 * np.cos(al) + sum(np.cos(4 * al * k + thx) + np.cos(thy - 4 * al * k) for k in range(4))
+            for a, b in [(2, 0), (1, 1)]:
+                H, B4 = hf.build(nb4, a, b, ph)
+                ok_twist = max(ok_twist, abs(s - pred_s), abs(hf.mu4(H, len(B4)) -
+                               float(m4c.flux_baseline(nb4, a + b, inv4)) - float(m4c.flux_coefficient(16, a, b)) * s))
+    check("sec:futurework", "L=4 with twists: winding loops carry 4Phi y+th_x, th_y-4Phi x", ok_twist < 1e-12, True)
+    # sec:futurework#alphaflux-n: on the L x L torus (L = 3 or L >= 5) every 4-cycle is a plaquette, so
+    # mu4(Phi) = F + B N cos Phi for every composition: alpha(N, n, Phi) = alpha(N, n) cos Phi
+    worst5 = 0.0
+    nb5 = torus_neighbors((5, 5))[0]
+    inv5 = m4c.invariants(nb5)
+    for pq in (0, 2, 5, 9, 13):
+        al = 2 * np.pi * pq / 25
+        for a, b in [(3, 0), (2, 1)]:
+            H, D = mfv.build_H(5, a, b, 1.0, al)
+            worst5 = max(worst5, abs(mfv.mu2_mu4_sparse(H, D)[1] - float(m4c.flux_baseline(nb5, a + b, inv5))
+                                     - float(m4c.flux_coefficient(25, a, b)) * 25 * np.cos(al)))
+    check("sec:futurework", "L=5, n=3: mu4(Phi) = F + B N cos Phi, 5 fluxes (< 1e-12)", worst5 < 1e-12, True)
 
     # sec:futurework#twist-periodicity: the exact two-electron U-band under a boundary twist theta
     # is pi-periodic up to corrections ~ lambda^L / U^(L-1), and follows the doubled-twist

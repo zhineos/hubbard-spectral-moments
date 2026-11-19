@@ -1,0 +1,102 @@
+Resolving dependencies
+Building Challenge
+✔ [9047/9050] Built HubbardMoments.Defs (2.4s)
+✔ [9048/9050] Built HubbardMoments.Spec (2.8s)
+⚠ [9049/9050] Built Challenge (2.1s)
+warning: Challenge.lean:26:8: declaration uses `sorry`
+warning: Challenge.lean:28:8: declaration uses `sorry`
+warning: Challenge.lean:30:8: declaration uses `sorry`
+warning: Challenge.lean:32:8: declaration uses `sorry`
+warning: Challenge.lean:34:8: declaration uses `sorry`
+warning: Challenge.lean:36:8: declaration uses `sorry`
+warning: Challenge.lean:38:8: declaration uses `sorry`
+warning: Challenge.lean:40:8: declaration uses `sorry`
+warning: Challenge.lean:42:8: declaration uses `sorry`
+warning: Challenge.lean:44:8: declaration uses `sorry`
+warning: Challenge.lean:46:8: declaration uses `sorry`
+warning: Challenge.lean:48:8: declaration uses `sorry`
+warning: Challenge.lean:50:8: declaration uses `sorry`
+warning: Challenge.lean:52:8: declaration uses `sorry`
+warning: Challenge.lean:54:8: declaration uses `sorry`
+warning: Challenge.lean:56:8: declaration uses `sorry`
+warning: Challenge.lean:58:8: declaration uses `sorry`
+warning: Challenge.lean:60:8: declaration uses `sorry`
+warning: Challenge.lean:62:8: declaration uses `sorry`
+warning: Challenge.lean:64:8: declaration uses `sorry`
+warning: Challenge.lean:66:8: declaration uses `sorry`
+warning: Challenge.lean:68:8: declaration uses `sorry`
+warning: Challenge.lean:70:8: declaration uses `sorry`
+warning: Challenge.lean:72:8: declaration uses `sorry`
+warning: Challenge.lean:74:8: declaration uses `sorry`
+warning: Challenge.lean:76:8: declaration uses `sorry`
+warning: Challenge.lean:78:8: declaration uses `sorry`
+warning: Challenge.lean:80:8: declaration uses `sorry`
+warning: Challenge.lean:82:8: declaration uses `sorry`
+warning: Challenge.lean:84:8: declaration uses `sorry`
+warning: Challenge.lean:86:8: declaration uses `sorry`
+warning: Challenge.lean:88:8: declaration uses `sorry`
+warning: Challenge.lean:90:8: declaration uses `sorry`
+warning: Challenge.lean:92:8: declaration uses `sorry`
+warning: Challenge.lean:94:8: declaration uses `sorry`
+warning: Challenge.lean:96:8: declaration uses `sorry`
+warning: Challenge.lean:98:8: declaration uses `sorry`
+warning: Challenge.lean:100:8: declaration uses `sorry`
+warning: Challenge.lean:102:8: declaration uses `sorry`
+warning: Challenge.lean:104:8: declaration uses `sorry`
+warning: Challenge.lean:106:8: declaration uses `sorry`
+warning: Challenge.lean:108:8: declaration uses `sorry`
+warning: Challenge.lean:110:8: declaration uses `sorry`
+warning: Challenge.lean:112:8: declaration uses `sorry`
+warning: Challenge.lean:114:8: declaration uses `sorry`
+warning: Challenge.lean:116:8: declaration uses `sorry`
+warning: Challenge.lean:118:8: declaration uses `sorry`
+warning: Challenge.lean:120:8: declaration uses `sorry`
+warning: Challenge.lean:122:8: declaration uses `sorry`
+warning: Challenge.lean:124:8: declaration uses `sorry`
+warning: Challenge.lean:126:8: declaration uses `sorry`
+Build completed successfully (9050 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, HubbardMoments.sectorDimensions, HubbardMoments.sectorDimensionsQuoted, HubbardMoments.hopAverage, HubbardMoments.hopAverageRegular, HubbardMoments.hopAverageTorus, HubbardMoments.hopAverageTorusValues, HubbardMoments.projectedHoppingDiagonalZero, HubbardMoments.projectedHoppingSquareDiagonal, HubbardMoments.secondMomentTheorem, HubbardMoments.secondMomentRegular, HubbardMoments.secondMomentTorus, HubbardMoments.projectedHoppingExists, HubbardMoments.pairHoppingHermitian, HubbardMoments.doublonFirstOrderZero, HubbardMoments.doubledPeierlsPhase, HubbardMoments.doublonHoppingRange, HubbardMoments.doublonOnSiteShift, HubbardMoments.doublonOnSiteShiftTorus, HubbardMoments.torusTriangleFree, HubbardMoments.schriefferWolffCrossTerm, HubbardMoments.schriefferWolffSecondMoment, HubbardMoments.schriefferWolffSecondMomentTorus, HubbardMoments.crossTermNeedsTriangleFree, HubbardMoments.sampleMean, HubbardMoments.finitePopulationVariance, HubbardMoments.finitePopulationFourthMoment, HubbardMoments.independentSumSecondMoment, HubbardMoments.independentSumFourthMoment, HubbardMoments.torusBandMoments, HubbardMoments.freeFermionSecondMomentTorus, HubbardMoments.freeAndProjectedSecondMomentsAgree, HubbardMoments.finitePopulationTable, HubbardMoments.closedWalkFewMoved, HubbardMoments.fourHopPermutations, HubbardMoments.fourHopExchangesOccur, HubbardMoments.threeCycleCountAffine, HubbardMoments.canonicalAnticommutation, HubbardMoments.sortedTupleSignRule, HubbardMoments.hubbardHoppingHermitian, HubbardMoments.hubbardHoppingIsHoppingOperator, HubbardMoments.projectedHubbardIsProjectedHopping, HubbardMoments.secondMomentHubbard, HubbardMoments.secondMomentHubbardTorus, HubbardMoments.schriefferWolffHubbard, HubbardMoments.secondMomentWeightedTheorem, HubbardMoments.secondMomentHubbardWeighted, HubbardMoments.torusGraphCounts, HubbardMoments.hardCoreBosonFourthMoment, HubbardMoments.fourthMomentHubbard, HubbardMoments.fourthMomentHubbardTorus, HubbardMoments.fourthMomentTableL4, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge
+Building HubbardMoments.Main
+✔ [9049/9071] Built HubbardMoments.Combinatorics.Subsets (2.6s)
+✔ [9050/9071] Built HubbardMoments.Torus (2.9s)
+✔ [9051/9071] Built HubbardMoments.Fermions (2.9s)
+✔ [9052/9071] Built HubbardMoments.ClosedWalks (3.0s)
+✔ [9053/9071] Built HubbardMoments.Sectors (2.8s)
+✔ [9054/9071] Built HubbardMoments.SchriefferWolff (3.2s)
+✔ [9055/9071] Built HubbardMoments.SecondMoment (3.4s)
+✔ [9056/9071] Built HubbardMoments.Doublon (3.5s)
+✔ [9057/9071] Built HubbardMoments.FinitePopulation (3.7s)
+✔ [9058/9071] Built HubbardMoments.ProjectedHopping (2.7s)
+✔ [9059/9071] Built HubbardMoments.Hubbard (2.7s)
+✔ [9060/9071] Built HubbardMoments.TorusBand (2.9s)
+✔ [9061/9071] Built HubbardMoments.Weighted (2.7s)
+✔ [9062/9071] Built HubbardMoments.FourthMoment.GraphCounts (36s)
+✔ [9063/9071] Built HubbardMoments.FourthMoment.HardCoreBosons (7.0s)
+✔ [9064/9071] Built HubbardMoments.FourthMoment.FermionSigns (2.6s)
+✔ [9065/9071] Built HubbardMoments.FourthMoment.FermionPaths (2.4s)
+✔ [9066/9071] Built HubbardMoments.FourthMoment.FermionValues (6.2s)
+✔ [9067/9071] Built HubbardMoments.FourthMoment.FermionDelta (2.6s)
+✔ [9068/9071] Built HubbardMoments.FourthMoment.SpinCounts (2.4s)
+✔ [9069/9071] Built HubbardMoments.FourthMoment.FermionMoment (4.0s)
+✔ [9070/9071] Built HubbardMoments.FourthMoment.TorusMoment (2.7s)
+✔ [9071/9071] Built HubbardMoments.Main (2.1s)
+Build completed successfully (9071 jobs).
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, HubbardMoments.sectorDimensions, HubbardMoments.sectorDimensionsQuoted, HubbardMoments.hopAverage, HubbardMoments.hopAverageRegular, HubbardMoments.hopAverageTorus, HubbardMoments.hopAverageTorusValues, HubbardMoments.projectedHoppingDiagonalZero, HubbardMoments.projectedHoppingSquareDiagonal, HubbardMoments.secondMomentTheorem, HubbardMoments.secondMomentRegular, HubbardMoments.secondMomentTorus, HubbardMoments.projectedHoppingExists, HubbardMoments.pairHoppingHermitian, HubbardMoments.doublonFirstOrderZero, HubbardMoments.doubledPeierlsPhase, HubbardMoments.doublonHoppingRange, HubbardMoments.doublonOnSiteShift, HubbardMoments.doublonOnSiteShiftTorus, HubbardMoments.torusTriangleFree, HubbardMoments.schriefferWolffCrossTerm, HubbardMoments.schriefferWolffSecondMoment, HubbardMoments.schriefferWolffSecondMomentTorus, HubbardMoments.crossTermNeedsTriangleFree, HubbardMoments.sampleMean, HubbardMoments.finitePopulationVariance, HubbardMoments.finitePopulationFourthMoment, HubbardMoments.independentSumSecondMoment, HubbardMoments.independentSumFourthMoment, HubbardMoments.torusBandMoments, HubbardMoments.freeFermionSecondMomentTorus, HubbardMoments.freeAndProjectedSecondMomentsAgree, HubbardMoments.finitePopulationTable, HubbardMoments.closedWalkFewMoved, HubbardMoments.fourHopPermutations, HubbardMoments.fourHopExchangesOccur, HubbardMoments.threeCycleCountAffine, HubbardMoments.canonicalAnticommutation, HubbardMoments.sortedTupleSignRule, HubbardMoments.hubbardHoppingHermitian, HubbardMoments.hubbardHoppingIsHoppingOperator, HubbardMoments.projectedHubbardIsProjectedHopping, HubbardMoments.secondMomentHubbard, HubbardMoments.secondMomentHubbardTorus, HubbardMoments.schriefferWolffHubbard, HubbardMoments.secondMomentWeightedTheorem, HubbardMoments.secondMomentHubbardWeighted, HubbardMoments.torusGraphCounts, HubbardMoments.hardCoreBosonFourthMoment, HubbardMoments.fourthMomentHubbard, HubbardMoments.fourthMomentHubbardTorus, HubbardMoments.fourthMomentTableL4, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from HubbardMoments.Main
+Running Lean paranoid kernel on solution
+Lean paranoid kernel accepts the solution
+Running lean4lean kernel on solution
+checked 21302 declarations
+lean4lean kernel accepts the solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running con-leche kernel on solution
+con-leche: accepted 21305 declarations (--verified)
+con-leche kernel accepts the solution
+Running con-ron kernel on solution
+con-ron: accepted 21305 declarations (--verified)
+con-ron kernel accepts the solution
+Running Lean default kernel on solution
+Lean default kernel accepts the solution
+Your solution is okay!
+con-leche: 2 declarations hoisted ahead of the pinned Nat operations they ground: Nat.mul._f, Nat.mul
+con-ron: 2 declarations hoisted ahead of the pinned Nat operations they ground: Nat.mul._f, Nat.mul

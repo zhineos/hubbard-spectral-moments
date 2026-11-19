@@ -24,6 +24,8 @@ rationals: at `λ = 1` every matrix element is `0` or `±1`, so traces are integ
 | `app:mu4walks` | `α(27, 2) = −96/13` with both channels at `−1296`; the local values 208/200 and 180/186/182 at L = 5, 6; `α(N,2)` on 5×5×5, 4×4×4, 3×4, 4×5 (the side-of-4 formula); kagome `α = 0` at N = 27, 48 | `checks/hinf_local.py` | — |
 | `tab:swamp` | `Var(V)` and the U⁻² coefficient `c2` at L = 4 (exact rationals); `c2` against full ED at L = 4 (1,1), (2,1) and L = 5 (1,1); `c2(1,1) = −96/(N−1) − 64/(N−1)²` at L = 5–8; `c2 > 0` near half filling (L = 4, n = 14); `c2 < 0` at L = 4, n = 6 | `sw_correction.py`, dense ED | — (tier N) |
 | `sec:SW#beta-trend` | composition dependence of `c2/(N↑N↓)`, relative spread \|x − y\|/mean: 0.14, 0.06, 0.03 % at L = 4, 5, 6 (n = 4), 0.34 % at L = 4 (n = 5), 0.79 % at L = 4 (n = 6) | `sw_correction.py` | — (tier E) |
+| `eq:Aclosed`, `app:mu4walks#hcb-lemma` | `μ₄ = A(N,n) + α(N,n) P_same` in every composition, on every torus and graph of the `eq:alphaN` row and at every value printed in `tab:mu4exact`, `tab:n6test`; the hard-core-boson moment `(2m+4W+8C₄)p₁₁ + (24D+16C₄)p₂₂` in every particle-number sector of K₆, Petersen, the 3×3 triangular torus, a random graph, the 4×4 and 3×4 tori and a 12-site kagome | `uinf_traces_sparse.py`, `checks/hinf_local.py`, `mu4_closed_form.hcb_mu4_exact` | `mu4_closed_form.py` (tier A) |
+| `sec:mu4exchange#xy-limit` | f.c.c. counts m/N = 6, W/N = 66, C₄/N = 33, and the grand-canonical `κ₄/N = 540q − 1128q²` (the K⁴ coefficient of Rogiers and Dekeyser 1973) | `mu4_closed_form.fcc_neighbors` | — |
 | `eq:alphaN` | the closed form `α(N,n) = −8C₄(N−n)(8N−11n−2)/[N(N−1)(N−2)(N−3)]` against exact slopes: square tori L = 3–7, the 4×4 torus (C₄ = 24), K₆, Petersen, the 3×3 triangular torus, a random graph; the transposition part alone misses by 1.8 % and 3.9 % at L = 5 | `uinf_traces_sparse.py`, `checks/hinf_local.py` | — (tier A + N) |
 | `sec:fewbody#shape` | the N_d = 0 band of (1,1) at L = 5: `μ₂ = 23/3`, `μ₄ = 461/3`, excess kurtosis `−204/529` | `uinf_traces_sparse.py` | — (tier N) |
 | `sec:discussion#bond-linearity` | with complex bond-dependent amplitudes on a random 8-site graph (n = 4), `μ₄` is affine in `P_same` and its slope differs from the uniform one | independent Jordan–Wigner construction | — (tier A) |
@@ -35,10 +37,16 @@ Slow runs, each writing a dated record under `evidence/`:
 |---|---|---|
 | `checks/slow_n6_linearity.py` | `tab:n6test` (exact rationals, exact line) | `evidence/2026-11-12-n6-linearity` (dirty tree), `evidence/2026-11-13-n6-linearity` |
 | `checks/slow_finite_U.py` | `sec:benchmark#closure`, `sec:fewbody#centres`, `sec:n4test#threebands`, the doublon-flux residual ratios (U = 10, 20, 40, 80 from 2026-11-13) | `evidence/2026-11-12-finite-U` (dirty tree), `evidence/2026-11-13-finite-U` |
-| `checks/slow_bound_states.py` | `sec:n3test#unbound` (momentum-resolved bound-state search, exact and first order) | `evidence/2026-11-12-n3-bound-states` |
+| `checks/slow_bound_states.py` | `sec:n3test#unbound` (momentum-resolved bound-state search, exact and first order) | `evidence/2026-11-12-n3-bound-states` (dirty tree), `evidence/2026-11-18-n3-bound-states` |
+| `checks/slow_mu4_intercept.py` | `eq:Aclosed#numeric`, `app:mu4walks#hcb-lemma`: every simple graph with N ≤ 6 (one per isomorphism class) and 400 random graphs with N = 7–10, every sector (33 449 exact comparisons) | `evidence/2026-11-17-mu4-intercept` (dirty tree), `evidence/2026-11-18-mu4-intercept` |
 | `checks/slow_alpha_c2.py` | `eq:alphaN#numeric` (L = 6, n = 4, 5), `sec:SW#beta-trend` and `sec:SW#c2-sign` (c2 for n = 5 at L = 5, 6) | `evidence/2026-11-13-alpha-c2` (L = 5), `evidence/2026-11-14-alpha-c2` |
 
 Fig. 3 (`fig_sectors.py`, full spectra) has its own record, `evidence/2026-11-14-fig-sectors`.
+
+`checks/make_challenge.py` regenerates `lean/Challenge.lean`, the reference statements for
+`lake comparator`, from `lean/HubbardMoments/Main.lean`; `checks/make_statement.py` regenerates
+the claims of `STATEMENT.md` from the frozen rows of `docs/correspondence.tsv`. With `--check`,
+both only compare.
 
 Not yet covered: the density-of-states figures (tier E, visual statements).
 

@@ -15,11 +15,16 @@ Names in the code and the formalization, and the paper symbols they stand for.
 | $H_t$ | `H` (with `U = 0`), `build_H_*` | `hubbardHopping` | hopping term |
 | $H_\infty=P_0H_tP_0=T_0$ | `build_Uinf_H_sparse`, `apply_H`, `T0` | `projectedHubbard`, `IsProjectedHopping` | projected hopping operator at $U\to\infty$ |
 | $T_1$, $V=T_1^\dagger T_1$, $T_0^Q$, $H^{(3)}$ | `T1`, `V`, `T0Q`, `tr_T0H3` (`sw_correction.py`) | `virtualOp` ($V$) | Schrieffer–Wolff operators |
-| $\mu_2$, $\mu_4$ | `mu2`, `mu4`, `tr2`/`tr4`, `uinf_moments`, `h2_diag`/`h4_diag` | `secondMoment` | spectral moments (trace / dimension) |
+| $\mu_2$, $\mu_4$ | `mu2`, `mu4`, `tr2`/`tr4`, `uinf_moments`, `h2_diag`/`h4_diag` | `secondMoment`, `fourthMoment` | spectral moments (trace / dimension) |
 | $c_2$ | `c2`, `sw_c2` | — | $U^{-2}$ coefficient of $\mu_{2,c}(U)$ |
 | $P_{\rm same}$, $P_3$ | `p_same`, `ps` | written out in `Spec.lean` | same-spin pair and triple counts |
-| $\alpha(N,n)$ | `alpha_formula`, slopes | — | exchange coefficient |
-| $C_4$ | `four_cycles` | — | number of 4-cycles of the graph |
+| $\alpha(N,n)$ | `alpha_formula`, `alpha` (`mu4_closed_form.py`), slopes | `exchangeSlope` | exchange coefficient |
+| $C_4$ | `four_cycles`, `four_cycle_list` | `fourCycleCount` | number of 4-cycles of the graph |
+| $m$, $W$, $D$ | `invariants` (`mu4_closed_form.py`) | `G.edgeFinset.card`, `wedgeCount`, `disjointEdgePairs` | edges, pairs of edges sharing a vertex, pairs of disjoint edges |
+| $p_{ab}$ | `p` (`mu4_closed_form.py`) | `occProb` | canonical probability of $a$ given occupied and $b$ given empty sites |
+| $\mu_4^{\rm HCB}$ | `mu4_hcb`, `hcb_mu4_exact` | `hardCoreHopping`, `fourthMoment` | fourth moment of $n$ hard-core bosons (the $n$-token graph) |
+| $A(N,n)$ | `intercept`, `mu4_fermion` | `fourthMomentIntercept` | spin-independent part of $\mu_4(\infty)$ |
+| $\Theta_C$, $B(N,n,P_{\rm same})$ | `wilson_cos_sum` (`checks/hinf_flux.py`), `flux_coefficient`, `mu4_fermion_flux` | — | Wilson phase of a 4-cycle, and the coefficient of $\sum_C\cos\Theta_C$ in $\mu_4$ under Peierls phases (not formalized) |
 | $\varepsilon_d$, $t_d$ | `center`/`eps_d`, `lam_eff`/`t_d` (`pair_theory`) | `doublonSecondOrder` (the second-order terms) | doublon energy and hopping |
 | $\Phi_\square$, $A_{ij}$ | `alpha` (flux quantum number), `link_phase`, `plaquette_flux` | phases of `pairHopping`, `hubbardHopping` | plaquette flux, Peierls phase |
 | $\theta$ | `theta`, `twisted_adjacency` | — | boundary twist |

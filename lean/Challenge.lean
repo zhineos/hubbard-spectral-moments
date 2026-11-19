@@ -15,8 +15,8 @@ The trusted part is this file's import closure: Mathlib, `HubbardMoments.Defs` a
 `HubbardMoments.Spec`. Nothing here is proved; the `sorry`s are the point. This library is
 not a default target, so `lake build` and `lake check` never see them.
 
-Generated from `HubbardMoments/Main.lean` (one line per theorem, same order); regenerate
-rather than edit by hand.
+Generated from `HubbardMoments/Main.lean` (one line per theorem, same order) by
+`checks/make_challenge.py`; regenerate rather than edit by hand.
 -/
 
 public section
@@ -114,5 +114,15 @@ theorem schriefferWolffHubbard : Spec.SchriefferWolffHubbard := sorry
 theorem secondMomentWeightedTheorem : Spec.SecondMomentWeightedTheorem := sorry
 
 theorem secondMomentHubbardWeighted : Spec.SecondMomentHubbardWeighted := sorry
+
+theorem torusGraphCounts : Spec.TorusGraphCounts := sorry
+
+theorem hardCoreBosonFourthMoment : Spec.HardCoreBosonFourthMoment := sorry
+
+theorem fourthMomentHubbard : Spec.FourthMomentHubbard := sorry
+
+theorem fourthMomentHubbardTorus : Spec.FourthMomentHubbardTorus := sorry
+
+theorem fourthMomentTableL4 : Spec.FourthMomentTableL4 := sorry
 
 end HubbardMoments
